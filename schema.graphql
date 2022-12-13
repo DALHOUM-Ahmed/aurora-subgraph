@@ -1,0 +1,216 @@
+type AddTag @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  tag: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Follow @entity(immutable: true) {
+  id: Bytes!
+  follower: Bytes! # address
+  followed: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetBio @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  bio: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetDateOfBirth @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  dateOfBirth: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetDiscord @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  discord: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetEmail @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  email: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetEmailVerifiedData @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  data: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetFingerScan @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  fingerScan: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetFirstName @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  firstName: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetGovID @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  govID: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetInstagram @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  instagram: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetLastName @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  lastName: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetMiddleName @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  middleName: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetPictureNFT @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  nftAddress: Bytes! # address
+  id: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetPictureUpload @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  url: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetTelephone @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  telephone: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetTelephoneVerifiedData @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  data: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetTiktok @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  tiktok: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetTwitter @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  twitter: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SetUsername @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  username: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SignupBasic @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  _userAddress: Bytes! # address
+  names: [String]! # string[4]
+  socialInfo: [String]! # string[4]
+  userContact: [String]! # string[2]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SignupProfileInfo @entity(immutable: true) {
+  id: Bytes!
+  userId: BigInt! # uint256
+  pronoun: Int! # uint8
+  dateOfBirth: String! # string
+  profile: [String]! # string[2]
+  bio: String! # string
+  nftAddress: Bytes! # address
+  ownedID: BigInt! # uint256
+  verificationData: [String]! # string[2]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UnFollow @entity(immutable: true) {
+  id: Bytes!
+  follower: Bytes! # address
+  followed: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

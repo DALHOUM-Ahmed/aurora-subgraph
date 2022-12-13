@@ -1,0 +1,89 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: users
+    network: aurora-testnet
+    source:
+      address: "0x7a79836f0E2b8e48d100f8a65ba4123c995BF036"
+      abi: users
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AddTag
+        - Follow
+        - SetBio
+        - SetDateOfBirth
+        - SetDiscord
+        - SetEmail
+        - SetEmailVerifiedData
+        - SetFingerScan
+        - SetFirstName
+        - SetGovID
+        - SetInstagram
+        - SetLastName
+        - SetMiddleName
+        - SetPictureNFT
+        - SetPictureUpload
+        - SetTelephone
+        - SetTelephoneVerifiedData
+        - SetTiktok
+        - SetTwitter
+        - SetUsername
+        - SignupBasic
+        - SignupProfileInfo
+        - UnFollow
+      abis:
+        - name: users
+          file: ./abis/users.json
+      eventHandlers:
+        - event: AddTag(uint256,string)
+          handler: handleAddTag
+        - event: Follow(address,address)
+          handler: handleFollow
+        - event: SetBio(uint256,string)
+          handler: handleSetBio
+        - event: SetDateOfBirth(uint256,string)
+          handler: handleSetDateOfBirth
+        - event: SetDiscord(uint256,string)
+          handler: handleSetDiscord
+        - event: SetEmail(uint256,string)
+          handler: handleSetEmail
+        - event: SetEmailVerifiedData(uint256,string)
+          handler: handleSetEmailVerifiedData
+        - event: SetFingerScan(uint256,string)
+          handler: handleSetFingerScan
+        - event: SetFirstName(uint256,string)
+          handler: handleSetFirstName
+        - event: SetGovID(uint256,string)
+          handler: handleSetGovID
+        - event: SetInstagram(uint256,string)
+          handler: handleSetInstagram
+        - event: SetLastName(uint256,string)
+          handler: handleSetLastName
+        - event: SetMiddleName(uint256,string)
+          handler: handleSetMiddleName
+        - event: SetPictureNFT(uint256,address,uint256)
+          handler: handleSetPictureNFT
+        - event: SetPictureUpload(uint256,string)
+          handler: handleSetPictureUpload
+        - event: SetTelephone(uint256,string)
+          handler: handleSetTelephone
+        - event: SetTelephoneVerifiedData(uint256,string)
+          handler: handleSetTelephoneVerifiedData
+        - event: SetTiktok(uint256,string)
+          handler: handleSetTiktok
+        - event: SetTwitter(uint256,string)
+          handler: handleSetTwitter
+        - event: SetUsername(uint256,string)
+          handler: handleSetUsername
+        - event: SignupBasic(uint256,address,string[4],string[4],string[2])
+          handler: handleSignupBasic
+        - event: SignupProfileInfo(uint256,uint8,string,string[2],string,address,uint256,string[2])
+          handler: handleSignupProfileInfo
+        - event: UnFollow(address,address)
+          handler: handleUnFollow
+      file: ./src/users.ts
