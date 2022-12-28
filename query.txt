@@ -1,0 +1,5 @@
+query { getUserByEmail(text: "email") { id userName } }
+
+query { getUserByAddress(text: "0xf9013432B10E1F446bb19D5b7C15baB43E9C3867") { id userName userAddress } }
+
+query { getUserById(text: "2") { id userName userAddress } }

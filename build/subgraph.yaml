@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 features:
   - fullTextSearch
   - nonFatalErrors
@@ -42,7 +42,7 @@ dataSources:
         - UnFollow
       abis:
         - name: users
-          file: ./abis/users.json
+          file: users/abis/users.json
       eventHandlers:
         - event: Follow(uint256,uint256)
           handler: handleFollow
@@ -96,7 +96,7 @@ dataSources:
           handler: handleSetTags
         - event: SetGovID(uint256,string)
           handler: handleSetGovtID
-      file: ./src/users.ts
+      file: users/users.wasm
   - kind: ethereum
     name: posts
     network: aurora-testnet
@@ -115,7 +115,7 @@ dataSources:
         - UpdatePost
       abis:
         - name: posts
-          file: ./abis/posts.json
+          file: posts/abis/posts.json
       eventHandlers:
         - event: CreatePost(uint256,string,string,uint256,uint256,uint256)
           handler: handleCreatePost
@@ -125,7 +125,7 @@ dataSources:
           handler: handleUpdateBody
         - event: UpdatePost(uint256,uint256,string)
           handler: handleUpdatePost
-      file: ./src/posts.ts
+      file: posts/posts.wasm
   - kind: ethereum
     name: groups
     network: aurora-testnet
@@ -148,7 +148,7 @@ dataSources:
         - RemovePendingMember
       abis:
         - name: groups
-          file: ./abis/groups.json
+          file: groups/abis/groups.json
       eventHandlers:
         - event: CreateGroup(uint256,uint256,string,string)
           handler: handleCreateGroup
@@ -166,4 +166,4 @@ dataSources:
           handler: handleAddPendingMember
         - event: RemovePendingMember(uint256,uint256)
           handler: handleRemovePendingMember
-      file: ./src/groups.ts
+      file: groups/groups.wasm

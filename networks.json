@@ -1,7 +1,13 @@
 {
   "aurora-testnet": {
     "users": {
-      "address": "0x7a79836f0E2b8e48d100f8a65ba4123c995BF036"
+      "address": "0x7757D2D0bE676c15291e726AddCf64753b1CDb6C"
+    },
+    "posts": {
+      "address": "0xF82B30721ECE3C38326D6EfA0139EcB06B0deed0"
+    },
+    "groups": {
+      "address": "0x4283d4BB3Ea930eFf366f1127E4932c4338fcAED"
     }
   }
 }

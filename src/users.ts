@@ -1,5 +1,4 @@
 import {
-  AddTag as AddTagEvent,
   Follow as FollowEvent,
   SetBio as SetBioEvent,
   SetDateOfBirth as SetDateOfBirthEvent,
@@ -21,366 +20,341 @@ import {
   SetUsername as SetUsernameEvent,
   SignupBasic as SignupBasicEvent,
   SignupProfileInfo as SignupProfileInfoEvent,
-  UnFollow as UnFollowEvent
-} from "../generated/users/users"
-import {
-  AddTag,
-  Follow,
-  SetBio,
-  SetDateOfBirth,
-  SetDiscord,
-  SetEmail,
-  SetEmailVerifiedData,
-  SetFingerScan,
-  SetFirstName,
-  SetGovID,
-  SetInstagram,
-  SetLastName,
-  SetMiddleName,
-  SetPictureNFT,
-  SetPictureUpload,
-  SetTelephone,
-  SetTelephoneVerifiedData,
-  SetTiktok,
-  SetTwitter,
-  SetUsername,
-  SignupBasic,
-  SignupProfileInfo,
-  UnFollow
-} from "../generated/schema"
+  UnFollow as UnFollowEvent,
+  SignupTags as SignupTagsEvent,
+  SetBackgroundColor as SetBackgroundColorEvent,
+  SetTags as SetTagsEvent
+} from "../generated/users/users";
+import { User, Post } from "../generated/schema";
+import { BigInt } from "@graphprotocol/graph-ts";
+import { log } from "@graphprotocol/graph-ts";
 
-export function handleAddTag(event: AddTagEvent): void {
-  let entity = new AddTag(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.tag = event.params.tag
+export function handleUnFollow(event: UnFollowEvent): void {
+  let follower = User.load(event.params.follower.toString());
+  let followed = User.load(event.params.followed.toString());
+  log.info("within follow handeling", ["hjkdfsfsdl"]);
+  if (follower === null || followed === null) {
+    return;
+  }
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  var newFollowers: string[] = [];
+  for (let i = 0; i < followed.followers!.length; i++) {
+    if (parseInt(followed.followers![i]) !== parseInt(follower.id)) {
+      log.info(
+        "5252 follower different " + followed.followers![i] + "|" + follower.id,
+        ["1"]
+      );
+      newFollowers = newFollowers.concat([followed.followers![i]]);
+    }
+  }
+  followed.followers = newFollowers;
 
-  entity.save()
+  var newFollowings: string[] = [];
+  for (let i = 0; i < follower.followedUsers!.length; i++) {
+    if (parseInt(follower.followedUsers![i]) !== parseInt(followed.id)) {
+      log.info(
+        "5252 followed different " +
+          follower.followedUsers![i] +
+          "|" +
+          followed.id,
+        ["1"]
+      );
+      newFollowings = newFollowings.concat([follower.followedUsers![i]]);
+    }
+  }
+  follower.followedUsers = newFollowings;
+
+  log.info("123456789", ["1"]);
+
+  if (follower.followedUsersCount === 0 || followed.followingUsersCount === 0)
+    return;
+
+  log.info("987654321", ["1"]);
+
+  follower.followedUsersCount -= 1;
+  followed.followingUsersCount -= 1;
+  follower.save();
+  followed.save();
 }
 
 export function handleFollow(event: FollowEvent): void {
-  let entity = new Follow(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.follower = event.params.follower
-  entity.followed = event.params.followed
+  let follower = User.load(event.params.follower.toString());
+  let followed = User.load(event.params.followed.toString());
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  if (follower === null || followed === null) {
+    return;
+  }
 
-  entity.save()
+  // followed.followers.push(event.params.follower.toString());
+  followed.followers = followed.followers!.concat([
+    event.params.follower.toString()
+  ]);
+
+  follower.followedUsers = follower.followedUsers!.concat([
+    event.params.followed.toString()
+  ]);
+
+  // follower.followedUsers.push(event.params.followed.toString());
+
+  follower.followedUsersCount += 1;
+  followed.followingUsersCount += 1;
+
+  follower.save();
+  followed.save();
 }
 
-export function handleSetBio(event: SetBioEvent): void {
-  let entity = new SetBio(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.bio = event.params.bio
+export function handleSetFingerScan(event: SetFingerScanEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.fingerScan = event.params.fingerScan;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  entity.save();
 }
 
-export function handleSetDateOfBirth(event: SetDateOfBirthEvent): void {
-  let entity = new SetDateOfBirth(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.dateOfBirth = event.params.dateOfBirth
+export function handleSetGovID(event: SetGovIDEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.govtID = event.params.govID;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  entity.save();
 }
 
-export function handleSetDiscord(event: SetDiscordEvent): void {
-  let entity = new SetDiscord(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.discord = event.params.discord
+export function handleSetTelephone(event: SetTelephoneEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.telephone = event.params.telephone;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetEmail(event: SetEmailEvent): void {
-  let entity = new SetEmail(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.email = event.params.email
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  entity.save();
 }
 
 export function handleSetEmailVerifiedData(
   event: SetEmailVerifiedDataEvent
 ): void {
-  let entity = new SetEmailVerifiedData(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.data = event.params.data
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetFingerScan(event: SetFingerScanEvent): void {
-  let entity = new SetFingerScan(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.fingerScan = event.params.fingerScan
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetFirstName(event: SetFirstNameEvent): void {
-  let entity = new SetFirstName(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.firstName = event.params.firstName
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetGovID(event: SetGovIDEvent): void {
-  let entity = new SetGovID(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.govID = event.params.govID
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetInstagram(event: SetInstagramEvent): void {
-  let entity = new SetInstagram(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.instagram = event.params.instagram
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetLastName(event: SetLastNameEvent): void {
-  let entity = new SetLastName(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.lastName = event.params.lastName
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetMiddleName(event: SetMiddleNameEvent): void {
-  let entity = new SetMiddleName(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.middleName = event.params.middleName
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetPictureNFT(event: SetPictureNFTEvent): void {
-  let entity = new SetPictureNFT(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.nftAddress = event.params.nftAddress
-  entity.id = event.params.id
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetPictureUpload(event: SetPictureUploadEvent): void {
-  let entity = new SetPictureUpload(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.url = event.params.url
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleSetTelephone(event: SetTelephoneEvent): void {
-  let entity = new SetTelephone(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.telephone = event.params.telephone
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.emailVerifiedData = event.params.data;
+  entity.save();
 }
 
 export function handleSetTelephoneVerifiedData(
   event: SetTelephoneVerifiedDataEvent
 ): void {
-  let entity = new SetTelephoneVerifiedData(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.data = event.params.data
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.telephoneVerifiedData = event.params.data;
+  entity.save();
+}
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+export function handleSetPictureUpload(event: SetPictureUploadEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.pictureUpload = event.params.url;
 
-  entity.save()
+  entity.save();
+}
+
+export function handleSetPictureNFT(event: SetPictureNFTEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.nftAddress = event.params.nftAddress;
+  entity.ownedID = event.params.id;
+
+  entity.save();
+}
+
+export function handleSetBio(event: SetBioEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.bio = event.params.bio;
+
+  entity.save();
+}
+
+export function handleSetTags(event: SetTagsEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.tags = event.params.tags;
+  entity.save();
+}
+
+export function handleSetEmail(event: SetEmailEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.email = event.params.email;
+
+  entity.save();
+}
+
+export function handleSetLastName(event: SetLastNameEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.lastName = event.params.lastName;
+
+  entity.save();
 }
 
 export function handleSetTiktok(event: SetTiktokEvent): void {
-  let entity = new SetTiktok(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.tiktok = event.params.tiktok
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.tiktok = event.params.tiktok;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  entity.save();
 }
 
 export function handleSetTwitter(event: SetTwitterEvent): void {
-  let entity = new SetTwitter(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.twitter = event.params.twitter
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.twitter = event.params.twitter;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.save();
+}
 
-  entity.save()
+export function handleSetInstagram(event: SetInstagramEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.instagram = event.params.instagram;
+
+  entity.save();
+}
+
+export function handleSetDiscord(event: SetDiscordEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.discord = event.params.discord;
+
+  entity.save();
+}
+
+export function handleSetDateOfBirth(event: SetDateOfBirthEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.dateOfBirth = event.params.dateOfBirth;
+
+  entity.save();
+}
+
+export function handleSetBackgroundColor(event: SetBackgroundColorEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.backgroundColor = event.params.backgroundColor;
+
+  entity.save();
+}
+
+export function handleSetMiddleName(event: SetMiddleNameEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.middleName = event.params.middleName;
+
+  entity.save();
+}
+
+export function handleSetFirstName(event: SetFirstNameEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.firstName = event.params.firstName;
+
+  entity.save();
 }
 
 export function handleSetUsername(event: SetUsernameEvent): void {
-  let entity = new SetUsername(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.username = event.params.username
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) return;
+  entity.userName = event.params.username;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.save();
+}
 
-  entity.save()
+export function handleSignupTags(event: SignupTagsEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.tags = event.params.tags;
+  entity.save();
 }
 
 export function handleSignupBasic(event: SignupBasicEvent): void {
-  let entity = new SignupBasic(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity._userAddress = event.params._userAddress
-  entity.names = event.params.names
-  entity.socialInfo = event.params.socialInfo
-  entity.userContact = event.params.userContact
+  let entity = newUser(event.params.userId.toString());
+  entity.userId = event.params.userId;
+  entity.userAddress = event.params._userAddress.toHexString();
+  entity.firstName = event.params.names[0].toString();
+  entity.middleName = event.params.names[1].toString();
+  entity.lastName = event.params.names[2].toString();
+  entity.userName = event.params.names[3].toString();
+  entity.discord = event.params.socialInfo[0].toString();
+  entity.instagram = event.params.socialInfo[1].toString();
+  entity.twitter = event.params.socialInfo[2].toString();
+  entity.tiktok = event.params.socialInfo[3].toString();
+  entity.email = event.params.userContact[0].toString();
+  entity.telephone = event.params.userContact[1].toString();
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
 
-  entity.save()
+  entity.save();
 }
 
 export function handleSignupProfileInfo(event: SignupProfileInfoEvent): void {
-  let entity = new SignupProfileInfo(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.userId = event.params.userId
-  entity.pronoun = event.params.pronoun
-  entity.dateOfBirth = event.params.dateOfBirth
-  entity.profile = event.params.profile
-  entity.bio = event.params.bio
-  entity.nftAddress = event.params.nftAddress
-  entity.ownedID = event.params.ownedID
-  entity.verificationData = event.params.verificationData
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.userId = event.params.userId;
+  if (event.params.pronoun == 1) {
+    entity.pronoun = "I";
+  } else if (event.params.pronoun == 2) {
+    entity.pronoun = "YOU";
+  } else if (event.params.pronoun == 3) {
+    entity.pronoun = "SHE";
+  } else if (event.params.pronoun == 4) {
+    entity.pronoun = "HE";
+  } else if (event.params.pronoun == 5) {
+    entity.pronoun = "IT";
+  } else if (event.params.pronoun == 6) {
+    entity.pronoun = "WE";
+  } else if (event.params.pronoun == 7) {
+    entity.pronoun = "THEY";
+  }
+  entity.followedUsersCount = 0;
+  entity.followingUsersCount = 0;
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
+  entity.dateOfBirth = event.params.dateOfBirth;
+  entity.backgroundColor = event.params.profile[0];
+  entity.pictureUpload = event.params.profile[1];
+  entity.bio = event.params.bio;
+  entity.nftAddress = event.params.nftAddress;
+  entity.ownedID = event.params.ownedID;
+  entity.govtID = event.params.verificationData[0];
+  entity.fingerScan = event.params.verificationData[1];
 
-  entity.save()
+  entity.followedUsers = [];
+  entity.followers = [];
+
+  entity.save();
 }
 
-export function handleUnFollow(event: UnFollowEvent): void {
-  let entity = new UnFollow(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.follower = event.params.follower
-  entity.followed = event.params.followed
+function newUser(id: string): User {
+  let entity = new User(id);
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
+  return entity;
 }
