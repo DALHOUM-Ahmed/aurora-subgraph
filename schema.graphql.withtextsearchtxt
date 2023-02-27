@@ -150,3 +150,23 @@ type Reply @entity {
   taggedGroups: [Group!]
   numberOfReports: Int
 }
+
+type _Schema_
+  @fulltext(
+    name: "getUserByEmail"
+    language: simple
+    algorithm: rank
+    include: [{ entity: "User", fields: [{ name: "email" }] }]
+  )
+  @fulltext(
+    name: "getUserByAddress"
+    language: simple
+    algorithm: proximityRank
+    include: [{ entity: "User", fields: [{ name: "userAddress" }] }]
+  )
+  @fulltext(
+    name: "getUserById"
+    language: simple
+    algorithm: rank
+    include: [{ entity: "User", fields: [{ name: "id" }] }]
+  )
