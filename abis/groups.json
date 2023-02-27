@@ -3,29 +3,6 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "executor",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      }
-    ],
-    "name": "addGroupMember",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
         "name": "_administration",
         "type": "address"
       },
@@ -37,91 +14,6 @@
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "memberID",
-        "type": "uint256"
-      }
-    ],
-    "name": "AddGroupMember",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      }
-    ],
-    "name": "addPendingMember",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "memberID",
-        "type": "uint256"
-      }
-    ],
-    "name": "AddPendingMember",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_about",
-        "type": "string"
-      }
-    ],
-    "name": "createGroup",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "_groupID",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -149,28 +41,59 @@
         "internalType": "string",
         "name": "about",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isPrivateGroup",
+        "type": "bool"
       }
     ],
     "name": "CreateGroup",
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userID",
+        "type": "uint256"
       },
       {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "groupId",
+        "name": "postID",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "groupID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "about",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isPrivateGroup",
+        "type": "bool"
       }
     ],
-    "name": "deleteGroup",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "CreatePostGroup",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -186,27 +109,42 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
-        "internalType": "address",
-        "name": "executor",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "groupId",
+        "name": "follower",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "followedGroup",
         "type": "uint256"
       }
     ],
-    "name": "removeMember",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "Follow",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "follower",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "followedGroup",
+        "type": "uint256"
+      }
+    ],
+    "name": "UnFollow",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -220,72 +158,18 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "memberID",
-        "type": "uint256"
-      }
-    ],
-    "name": "RemoveMember",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      }
-    ],
-    "name": "removePendingMember",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "groupId",
+        "name": "userID",
         "type": "uint256"
       },
       {
         "indexed": false,
-        "internalType": "uint256",
-        "name": "memberID",
-        "type": "uint256"
+        "internalType": "bool",
+        "name": "isBanned",
+        "type": "bool"
       }
     ],
-    "name": "RemovePendingMember",
+    "name": "UpdateBanStatus",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_about",
-        "type": "string"
-      }
-    ],
-    "name": "updateGroupAbout",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -307,29 +191,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      }
-    ],
-    "name": "updateGroupName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -346,6 +207,25 @@
       }
     ],
     "name": "UpdateGroupName",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "groupId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "isPrivate",
+        "type": "bool"
+      }
+    ],
+    "name": "UpdateGroupPrivacy",
     "type": "event"
   },
   {
@@ -378,6 +258,125 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      }
+    ],
+    "name": "checkGroupNameExist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_about",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_private",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "createGroup",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "_groupID",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "groupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "deleteGroup",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "follower",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "followed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "follow",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -441,7 +440,55 @@
         "type": "address"
       }
     ],
-    "name": "isAdminOfGroup",
+    "name": "isBannedFromGroup",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "isFollowingGroup",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_groupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      }
+    ],
+    "name": "isGroupAdmin",
     "outputs": [
       {
         "internalType": "bool",
@@ -482,14 +529,9 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
-    "name": "isGroupMember",
+    "name": "isPrivate",
     "outputs": [
       {
         "internalType": "bool",
@@ -501,27 +543,201 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_about",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "_private",
+        "type": "bool"
+      }
+    ],
+    "name": "postContractCreateGroup",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "_groupID",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
-      },
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
-    "name": "isGroupPendingMember",
+    "name": "postGroupByPost",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "uint256",
         "name": "",
-        "type": "bool"
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_group",
+        "type": "uint256"
+      }
+    ],
+    "name": "postVerification",
+    "outputs": [],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "groupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "_banned",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setBanUser",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "follower",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "followed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "unFollow",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "groupId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string[]",
+        "name": "data",
+        "type": "string[]"
+      },
+      {
+        "internalType": "enum Field[]",
+        "name": "fields",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "bool",
+        "name": "_private",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "updateGroup",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

@@ -2,32 +2,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "followed",
-        "type": "uint256"
-      }
-    ],
-    "name": "follow",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_backgroundColor",
-        "type": "string"
-      }
-    ],
-    "name": "setBackgroundColor",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "_administration",
         "type": "address"
@@ -67,25 +41,31 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "btcAddress",
+        "type": "string"
+      }
+    ],
+    "name": "SetBTCAddress",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "backgroundColor",
         "type": "string"
       }
     ],
     "name": "SetBackgroundColor",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "bio",
-        "type": "string"
-      }
-    ],
-    "name": "setBio",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -107,19 +87,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_dateOfBirth",
-        "type": "uint256"
-      }
-    ],
-    "name": "setDateOfBirth",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -137,19 +104,6 @@
     ],
     "name": "SetDateOfBirth",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_discord",
-        "type": "string"
-      }
-    ],
-    "name": "setDiscord",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -171,19 +125,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "email",
-        "type": "string"
-      }
-    ],
-    "name": "setEmail",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -201,19 +142,6 @@
     ],
     "name": "SetEmail",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "data",
-        "type": "string"
-      }
-    ],
-    "name": "setEmailVerifiedData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -235,19 +163,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "fingerScan",
-        "type": "string"
-      }
-    ],
-    "name": "setFingerScan",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -265,19 +180,6 @@
     ],
     "name": "SetFingerScan",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "firstName",
-        "type": "string"
-      }
-    ],
-    "name": "setFirstName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -318,32 +220,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "govtID",
-        "type": "string"
-      }
-    ],
-    "name": "setGovtID",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_instagram",
-        "type": "string"
-      }
-    ],
-    "name": "setInstagram",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -361,19 +237,6 @@
     ],
     "name": "SetInstagram",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "lastName",
-        "type": "string"
-      }
-    ],
-    "name": "setLastName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -395,19 +258,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_middleName",
-        "type": "string"
-      }
-    ],
-    "name": "setMiddleName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -425,31 +275,6 @@
     ],
     "name": "SetMiddleName",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "nftAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ownedID",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct User.userNFT",
-        "name": "nft",
-        "type": "tuple"
-      }
-    ],
-    "name": "setPictureNFT",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -477,17 +302,23 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
-        "internalType": "string",
-        "name": "url",
-        "type": "string"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum User.PRONOUN",
+        "name": "pronoun",
+        "type": "uint8"
       }
     ],
-    "name": "setPictureUpload",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "SetPronoun",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -501,25 +332,31 @@
       {
         "indexed": false,
         "internalType": "string",
-        "name": "url",
+        "name": "readKey",
         "type": "string"
       }
     ],
-    "name": "SetPictureUpload",
+    "name": "SetReadKey",
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
-        "internalType": "string[]",
-        "name": "tags",
-        "type": "string[]"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "status",
+        "type": "bool"
       }
     ],
-    "name": "setTags",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "SetStatus",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -541,19 +378,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "telephone",
-        "type": "string"
-      }
-    ],
-    "name": "setTelephone",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -571,19 +395,6 @@
     ],
     "name": "SetTelephone",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "data",
-        "type": "string"
-      }
-    ],
-    "name": "setTelephoneVerifiedData",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -605,19 +416,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_tiktok",
-        "type": "string"
-      }
-    ],
-    "name": "setTiktok",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -635,19 +433,6 @@
     ],
     "name": "SetTiktok",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_twitter",
-        "type": "string"
-      }
-    ],
-    "name": "setTwitter",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -669,19 +454,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "username",
-        "type": "string"
-      }
-    ],
-    "name": "setUserName",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -701,60 +473,23 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
-        "internalType": "string[]",
-        "name": "data",
-        "type": "string[]"
-      },
-      {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "dateOfBirth",
+        "name": "userId",
         "type": "uint256"
       },
       {
-        "internalType": "enum User.PRONOUN",
-        "name": "pronoun",
-        "type": "uint8"
-      },
-      {
-        "internalType": "string[]",
-        "name": "tags",
-        "type": "string[]"
-      },
-      {
-        "internalType": "enum User.Field[]",
-        "name": "fields",
-        "type": "uint8[]"
-      },
-      {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "nftAddress",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "ownedID",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct User.userNFT",
-        "name": "ownedNFT",
-        "type": "tuple"
+        "indexed": false,
+        "internalType": "string",
+        "name": "url",
+        "type": "string"
       }
     ],
-    "name": "signup",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "userID",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "SetphotoCID",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -868,19 +603,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "followed",
-        "type": "uint256"
-      }
-    ],
-    "name": "unFollow",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -939,7 +661,178 @@
         "type": "address"
       }
     ],
+    "name": "btcAddress",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "expireAndEraseSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "expireSession",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "follower",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "followed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "follow",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "userID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNFTOwnedBy",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "nftAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ownedID",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct User.userNFT",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "sessionHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getSignedUser",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "idByAddress",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "idByUserName",
     "outputs": [
       {
         "internalType": "uint256",
@@ -972,6 +865,270 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_btcAddress",
+        "type": "string"
+      }
+    ],
+    "name": "setBtcAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "readKey",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setReadKey",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "status",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "userChoice",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setStatus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "proofOfSignature",
+        "type": "bytes32"
+      }
+    ],
+    "name": "signin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "proofOfSignature",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string[]",
+        "name": "data",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "dateOfBirth",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum User.PRONOUN",
+        "name": "pronoun",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string[]",
+        "name": "tags",
+        "type": "string[]"
+      },
+      {
+        "internalType": "enum User.Field[]",
+        "name": "fields",
+        "type": "uint8[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "nftAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ownedID",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct User.userNFT",
+        "name": "ownedNFT",
+        "type": "tuple"
+      }
+    ],
+    "name": "signup",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "userID",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "follower",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "followed",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "unFollow",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string[]",
+        "name": "data",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "dateOfBirth",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum User.PRONOUN",
+        "name": "pronoun",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string[]",
+        "name": "tags",
+        "type": "string[]"
+      },
+      {
+        "internalType": "enum User.Field[]",
+        "name": "fields",
+        "type": "uint8[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "nftAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "ownedID",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct User.userNFT",
+        "name": "ownedNFT",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "updateBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1038,7 +1195,7 @@
       },
       {
         "internalType": "string",
-        "name": "pictureUpload",
+        "name": "photoCID",
         "type": "string"
       },
       {
@@ -1087,12 +1244,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "userId",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
-    "name": "userExists",
+    "name": "userInversedStatus",
     "outputs": [
       {
         "internalType": "bool",
@@ -1121,6 +1278,25 @@
       {
         "internalType": "string",
         "name": "fingerScan",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userReadKey",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
         "type": "string"
       }
     ],

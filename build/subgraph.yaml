@@ -7,11 +7,11 @@ features:
 dataSources:
   - kind: ethereum
     name: users
-    network: aurora-testnet
+    network: goerli
     source:
-      address: "0x7757D2D0bE676c15291e726AddCf64753b1CDb6C"
+      address: "0xD581bccbD8d8eC6cf077aeB3389b6576F5DE8E5D"
       abi: users
-      startBlock: 110400030
+      startBlock: 8521080
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -31,7 +31,7 @@ dataSources:
         - SetLastName
         - SetMiddleName
         - SetPictureNFT
-        - SetPictureUpload
+        - SetphotoCID
         - SetTelephone
         - SetTelephoneVerifiedData
         - SetTiktok
@@ -40,6 +40,9 @@ dataSources:
         - SignupBasic
         - SignupProfileInfo
         - UnFollow
+        - SetPronoun
+        - SetStatus
+        - SetReadKey
       abis:
         - name: users
           file: users/abis/users.json
@@ -70,8 +73,8 @@ dataSources:
           handler: handleSetMiddleName
         - event: SetPictureNFT(uint256,address,uint256)
           handler: handleSetPictureNFT
-        - event: SetPictureUpload(uint256,string)
-          handler: handleSetPictureUpload
+        - event: SetphotoCID(uint256,string)
+          handler: handleSetphotoCID
         - event: SetTelephone(uint256,string)
           handler: handleSetTelephone
         - event: SetTelephoneVerifiedData(uint256,string)
@@ -96,43 +99,112 @@ dataSources:
           handler: handleSetTags
         - event: SetGovID(uint256,string)
           handler: handleSetGovtID
+        - event: SetPronoun(uint256,uint8)
+          handler: handleSetPronoun
+        - event: SetStatus(uint256,bool)
+          handler: handleSetSetStatus
+        - event: SetReadKey(uint256,string)
+          handler: handleSetReadKey
       file: users/users.wasm
   - kind: ethereum
     name: posts
-    network: aurora-testnet
+    network: goerli
     source:
-      address: "0x5f8a20B00832ff02f467C37710988d11A5a5fbcD"
+      address: "0x7E4e44aB79dAB05532Fc58BD4D4ff6Be7Eb4B8ad"
       abi: posts
-      startBlock: 110400030
+      startBlock: 8521080
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - CreatePost
-        - DeletePost
+        - UpdateTitle
         - UpdateBody
-        - UpdatePost
+        - UpdateTags
+        - AddComment
+        - AddCommentLike
+        - AddPostLike
+        - AddReply
+        - AddReplyLike
+        - DeleteComment
+        - DeleteReply
+        - EditComment
+        - EditReply
+        - RemoveCommentLike
+        - RemovePostLike
+        - RemoveReplyLike
+        - UpdateTaggedPeople
+        - UpdateTaggedGroups
+        - UpdateType
+        - MintedNFT
+        - HidePost
       abis:
         - name: posts
           file: posts/abis/posts.json
       eventHandlers:
-        - event: CreatePost(uint256,string,string,uint256,uint256,uint256)
+        - event: CreatePost(uint256,string,string,string,string[],(uint256[],uint256[]),uint256,uint256,uint8,uint256)
           handler: handleCreatePost
-        - event: DeletePost(uint256,uint256)
-          handler: handleDeletePost
+        - event: UpdateTitle(uint256,uint256,string)
+          handler: handleUpdateTitle
         - event: UpdateBody(uint256,uint256,string)
           handler: handleUpdateBody
-        - event: UpdatePost(uint256,uint256,string)
-          handler: handleUpdatePost
+        - event: UpdateTags(uint256,uint256,string[])
+          handler: handleUpdateTags
+        - event: AddComment(uint256,uint256,uint256,string,(uint256[],uint256[]))
+          handler: handleAddComment
+        - event: AddCommentLike(uint256,uint256)
+          handler: handleAddCommentLike
+        - event: AddPostLike(uint256,uint256)
+          handler: handleAddPostLike
+        - event: AddReply(uint256,uint256,uint256,string,(uint256[],uint256[]))
+          handler: handleAddReply
+        - event: AddReplyLike(uint256,uint256)
+          handler: handleAddReplyLike
+        - event: DeleteComment(uint256,uint256)
+          handler: handleDeleteComment
+        - event: DeleteReply(uint256,uint256)
+          handler: handleDeleteReply
+        - event: EditComment(uint256,uint256,string,(uint256[],uint256[]))
+          handler: handleEditComment
+        - event: EditReply(uint256,uint256,string,(uint256[],uint256[]))
+          handler: handleEditReply
+        - event: RemoveCommentLike(uint256,uint256)
+          handler: handleRemoveCommentLike
+        - event: RemovePostLike(uint256,uint256)
+          handler: handleRemovePostLike
+        - event: RemoveReplyLike(uint256,uint256)
+          handler: handleRemoveReplyLike
+        - event: UpdateTaggedPeople(uint256,uint256,uint256[])
+          handler: handleUpdateTaggedPeople
+        - event: UpdateTaggedGroups(uint256,uint256,uint256[])
+          handler: handleUpdateTaggedGroups
+        - event: UpdateType(uint256,uint256,uint8)
+          handler: handleUpdateType
+        - event: UpdateCID(uint256,uint256,string)
+          handler: handleUpdateCID
+        - event: CreatePoll(uint256,string[],bool)
+          handler: handleCreatePoll
+        - event: AddVote(uint256,uint256,uint256,uint256)
+          handler: handleAddVote
+        - event: RemoveVote(uint256,uint256,uint256,uint256)
+          handler: handleRemoveVote
+        - event: MintedNFT(uint256,address,uint256)
+          handler: handleMintedNFT
+        - event: EditBackgroundColor(uint256,string)
+          handler: handleEditBackgroundColor
+        - event: EditCaptionType(uint256,uint8)
+          handler: handleEditCaptionType
+        - event: HidePost(uint256,uint256,bool)
+          handler: handleHidePost
       file: posts/posts.wasm
   - kind: ethereum
     name: groups
-    network: aurora-testnet
+    network: goerli
     source:
-      address: "0x4283d4BB3Ea930eFf366f1127E4932c4338fcAED"
+      address: "0x5e2cc7cc27C7b79e9ACdAcDB307aF31798440238"
       abi: groups
-      startBlock: 110400030
+      startBlock: 8521080
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -146,11 +218,15 @@ dataSources:
         - RemoveMember
         - AddPendingMember
         - RemovePendingMember
+        - UpdateGroupPrivacy
+        - Follow
+        - UnFollow
+        - CreatePostGroup
       abis:
         - name: groups
           file: groups/abis/groups.json
       eventHandlers:
-        - event: CreateGroup(uint256,uint256,string,string)
+        - event: CreateGroup(uint256,uint256,string,string,bool)
           handler: handleCreateGroup
         - event: UpdateGroupName(uint256,string)
           handler: handleUpdateGroupName
@@ -158,12 +234,40 @@ dataSources:
           handler: handleUpdateGroupAbout
         - event: DeleteGroup(uint256)
           handler: handleDeleteGroup
-        - event: AddGroupMember(uint256,uint256)
-          handler: handleAddGroupMember
-        - event: RemoveMember(uint256,uint256)
-          handler: handleRemoveMember
-        - event: AddPendingMember(uint256,uint256)
-          handler: handleAddPendingMember
-        - event: RemovePendingMember(uint256,uint256)
-          handler: handleRemovePendingMember
+        - event: UpdateBanStatus(uint256,uint256,bool)
+          handler: handleUpdateBanStatus
+        - event: UpdateGroupPrivacy(uint256,bool)
+          handler: handleUpdateGroupPrivacy
+        - event: Follow(uint256,uint256)
+          handler: handleFollow
+        - event: UnFollow(uint256,uint256)
+          handler: handleUnFollow
+        - event: CreatePostGroup(uint256,uint256,uint256,string,string,bool)
+          handler: handleCreatePostGroup
       file: groups/groups.wasm
+  - kind: ethereum
+    name: reports
+    network: goerli
+    source:
+      address: "0x5e2cc7cc27C7b79e9ACdAcDB307aF31798440238"
+      abi: reports
+      startBlock: 8521080
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ReportPost
+        - ReportComment
+        - ReportReply
+      abis:
+        - name: reports
+          file: reports/abis/reports.json
+      eventHandlers:
+        - event: ReportPost(uint256,bool)
+          handler: handleReportPost
+        - event: ReportComment(uint256,bool)
+          handler: handleReportComment
+        - event: ReportReply(uint256,bool)
+          handler: handleReportReply
+      file: reports/reports.wasm

@@ -1,24 +1,65 @@
 type Post @entity {
   id: ID!
+  integerID: BigInt!
   title: String! # string
   body: String! # string
+  cid: String! # string
+  tags: [String!]
+  taggedPeople: [User!]
+  taggedGroups: [Group!]
   createdAt: BigInt! # uint256
   groupID: BigInt! # uint256
-  postID: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
   editedAt: BigInt
-  transactionHash: Bytes!
   author: User!
-  deleted: Boolean
+  authorID: String! #used on nft creation
+  hiddenByAdmin: Boolean!
+  hiddenByAuthor: Boolean!
+  likes: Int
+  likers: [User!]
+  numberOfComments: Int
+  type: String
+  captionType: String
+  poll: Poll
+  nftID: Int
+  comments: [Comment!]
+  isNFT: Boolean
+  backgroundColor: String
+  firstCreatedCommentID: BigInt
+  lastCreatedCommentID: BigInt
+  group: Group!
+  userStatus: Boolean
+  numberOfReports: Int
+}
+#add isGroup bool to avoid fail on unknown
+
+# every poll have same id as its corresponding post
+type Poll @entity {
+  id: ID!
+  integerID: BigInt!
+  options: [String!]
+  votes: [Vote!]
+  firstCreatedVoteID: BigInt
+  lastCreatedVoteID: BigInt
+  singleOption: Boolean
+}
+
+#with an id that is incrementing inside the file (no need for a save file cause fail => re-run)
+type Vote @entity {
+  id: ID!
+  integerID: BigInt!
+  user: User!
+  removed: Boolean
+  chosenOption: BigInt! #indexes starting by 0; different then contract but more ui understandable
 }
 
 type User @entity {
   id: ID! # this field will contain a representation of the wallet address, cause the user will login with his wallet
   userId: BigInt!
-  followedGroups: [ID!]
-  followedUsers: [ID!]
-  followers: [ID!]
+  firstCreatedPostID: BigInt
+  lastCreatedPostID: BigInt
+  followedGroups: [Group!]
+  followedUsers: [User!]
+  followers: [User!]
   followedGroupsCount: Int
   followedUsersCount: Int
   followingUsersCount: Int
@@ -32,8 +73,8 @@ type User @entity {
   dateOfBirth: BigInt # string
   email: String # string
   bio: String # string
-  pictureUpload: String # string
-  nftAddress: Bytes # address
+  profilePicCid: String # string
+  nftAddress: String # address
   ownedID: BigInt # uint256
   telephone: String # string
   govtID: String # string
@@ -48,20 +89,66 @@ type User @entity {
   twitter: String
   tiktok: String
   tags: [String!]
-  posts: [Post!]! @derivedFrom(field: "author")
-  groups: [Group!]!
+  posts: [Post!]
+  bannedGroupsCount: Int
+  postEntity: String
   deleted: Boolean
+  profilePostsNFTaddress: String
+  numberOfMintedPosts: Int
+  firstCreatedGroupID: BigInt
+  lastCreatedGroupID: BigInt
+  status: Boolean
+  readKey: String
 }
 
 type Group @entity {
   id: ID! # this field will contain a representation of the wallet address, cause the user will login with his wallet
+  integerID: BigInt!
+  followers: [User!]
+  numberOfFollowers: Int
   name: String!
   author: User!
   about: String!
   admins: [User!]
-  members: [User!]
-  pendingMembers: [User!]
+  posts: [Post!]
+  bannedUsersCount: Int
+  isPrivate: Boolean
   deleted: Boolean
+  post: Post!
+}
+
+type Comment @entity {
+  id: ID! # this field will contain a representation of the wallet address, cause the user will login with his wallet
+  integerID: BigInt!
+  author: User!
+  body: String!
+  post: Post!
+  likes: Int
+  likers: [User!]
+  createdAt: BigInt
+  editedAt: BigInt
+  taggedPeople: [User!]
+  taggedGroups: [Group!]
+  replies: [Reply!]
+  numberOfReplies: Int
+  firstCreatedReplyID: BigInt
+  lastCreatedReplyID: BigInt
+  numberOfReports: Int
+}
+
+type Reply @entity {
+  id: ID! # this field will contain a representation of the wallet address, cause the user will login with his wallet
+  integerID: BigInt!
+  author: User!
+  body: String!
+  comment: Comment!
+  likes: Int
+  likers: [User!]
+  createdAt: BigInt
+  editedAt: BigInt
+  taggedPeople: [User!]
+  taggedGroups: [Group!]
+  numberOfReports: Int
 }
 
 type _Schema_
@@ -74,7 +161,7 @@ type _Schema_
   @fulltext(
     name: "getUserByAddress"
     language: simple
-    algorithm: rank
+    algorithm: proximityRank
     include: [{ entity: "User", fields: [{ name: "userAddress" }] }]
   )
   @fulltext(

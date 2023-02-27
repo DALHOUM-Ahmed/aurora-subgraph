@@ -42,6 +42,15 @@ export class Post extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get integerID(): BigInt {
+    let value = this.get("integerID");
+    return value!.toBigInt();
+  }
+
+  set integerID(value: BigInt) {
+    this.set("integerID", Value.fromBigInt(value));
+  }
+
   get title(): string {
     let value = this.get("title");
     return value!.toString();
@@ -58,6 +67,66 @@ export class Post extends Entity {
 
   set body(value: string) {
     this.set("body", Value.fromString(value));
+  }
+
+  get cid(): string {
+    let value = this.get("cid");
+    return value!.toString();
+  }
+
+  set cid(value: string) {
+    this.set("cid", Value.fromString(value));
+  }
+
+  get tags(): Array<string> | null {
+    let value = this.get("tags");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set tags(value: Array<string> | null) {
+    if (!value) {
+      this.unset("tags");
+    } else {
+      this.set("tags", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get taggedPeople(): Array<string> | null {
+    let value = this.get("taggedPeople");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set taggedPeople(value: Array<string> | null) {
+    if (!value) {
+      this.unset("taggedPeople");
+    } else {
+      this.set("taggedPeople", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get taggedGroups(): Array<string> | null {
+    let value = this.get("taggedGroups");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set taggedGroups(value: Array<string> | null) {
+    if (!value) {
+      this.unset("taggedGroups");
+    } else {
+      this.set("taggedGroups", Value.fromStringArray(<Array<string>>value));
+    }
   }
 
   get createdAt(): BigInt {
@@ -78,33 +147,6 @@ export class Post extends Entity {
     this.set("groupID", Value.fromBigInt(value));
   }
 
-  get postID(): BigInt {
-    let value = this.get("postID");
-    return value!.toBigInt();
-  }
-
-  set postID(value: BigInt) {
-    this.set("postID", Value.fromBigInt(value));
-  }
-
-  get blockNumber(): BigInt {
-    let value = this.get("blockNumber");
-    return value!.toBigInt();
-  }
-
-  set blockNumber(value: BigInt) {
-    this.set("blockNumber", Value.fromBigInt(value));
-  }
-
-  get blockTimestamp(): BigInt {
-    let value = this.get("blockTimestamp");
-    return value!.toBigInt();
-  }
-
-  set blockTimestamp(value: BigInt) {
-    this.set("blockTimestamp", Value.fromBigInt(value));
-  }
-
   get editedAt(): BigInt | null {
     let value = this.get("editedAt");
     if (!value || value.kind == ValueKind.NULL) {
@@ -122,15 +164,6 @@ export class Post extends Entity {
     }
   }
 
-  get transactionHash(): Bytes {
-    let value = this.get("transactionHash");
-    return value!.toBytes();
-  }
-
-  set transactionHash(value: Bytes) {
-    this.set("transactionHash", Value.fromBytes(value));
-  }
-
   get author(): string {
     let value = this.get("author");
     return value!.toString();
@@ -140,13 +173,416 @@ export class Post extends Entity {
     this.set("author", Value.fromString(value));
   }
 
-  get deleted(): boolean {
-    let value = this.get("deleted");
+  get authorID(): string {
+    let value = this.get("authorID");
+    return value!.toString();
+  }
+
+  set authorID(value: string) {
+    this.set("authorID", Value.fromString(value));
+  }
+
+  get hiddenByAdmin(): boolean {
+    let value = this.get("hiddenByAdmin");
     return value!.toBoolean();
   }
 
-  set deleted(value: boolean) {
-    this.set("deleted", Value.fromBoolean(value));
+  set hiddenByAdmin(value: boolean) {
+    this.set("hiddenByAdmin", Value.fromBoolean(value));
+  }
+
+  get hiddenByAuthor(): boolean {
+    let value = this.get("hiddenByAuthor");
+    return value!.toBoolean();
+  }
+
+  set hiddenByAuthor(value: boolean) {
+    this.set("hiddenByAuthor", Value.fromBoolean(value));
+  }
+
+  get likes(): i32 {
+    let value = this.get("likes");
+    return value!.toI32();
+  }
+
+  set likes(value: i32) {
+    this.set("likes", Value.fromI32(value));
+  }
+
+  get likers(): Array<string> | null {
+    let value = this.get("likers");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set likers(value: Array<string> | null) {
+    if (!value) {
+      this.unset("likers");
+    } else {
+      this.set("likers", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get numberOfComments(): i32 {
+    let value = this.get("numberOfComments");
+    return value!.toI32();
+  }
+
+  set numberOfComments(value: i32) {
+    this.set("numberOfComments", Value.fromI32(value));
+  }
+
+  get type(): string | null {
+    let value = this.get("type");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set type(value: string | null) {
+    if (!value) {
+      this.unset("type");
+    } else {
+      this.set("type", Value.fromString(<string>value));
+    }
+  }
+
+  get captionType(): string | null {
+    let value = this.get("captionType");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set captionType(value: string | null) {
+    if (!value) {
+      this.unset("captionType");
+    } else {
+      this.set("captionType", Value.fromString(<string>value));
+    }
+  }
+
+  get poll(): string | null {
+    let value = this.get("poll");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set poll(value: string | null) {
+    if (!value) {
+      this.unset("poll");
+    } else {
+      this.set("poll", Value.fromString(<string>value));
+    }
+  }
+
+  get nftID(): i32 {
+    let value = this.get("nftID");
+    return value!.toI32();
+  }
+
+  set nftID(value: i32) {
+    this.set("nftID", Value.fromI32(value));
+  }
+
+  get comments(): Array<string> | null {
+    let value = this.get("comments");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set comments(value: Array<string> | null) {
+    if (!value) {
+      this.unset("comments");
+    } else {
+      this.set("comments", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get isNFT(): boolean {
+    let value = this.get("isNFT");
+    return value!.toBoolean();
+  }
+
+  set isNFT(value: boolean) {
+    this.set("isNFT", Value.fromBoolean(value));
+  }
+
+  get backgroundColor(): string | null {
+    let value = this.get("backgroundColor");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set backgroundColor(value: string | null) {
+    if (!value) {
+      this.unset("backgroundColor");
+    } else {
+      this.set("backgroundColor", Value.fromString(<string>value));
+    }
+  }
+
+  get firstCreatedCommentID(): BigInt | null {
+    let value = this.get("firstCreatedCommentID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set firstCreatedCommentID(value: BigInt | null) {
+    if (!value) {
+      this.unset("firstCreatedCommentID");
+    } else {
+      this.set("firstCreatedCommentID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get lastCreatedCommentID(): BigInt | null {
+    let value = this.get("lastCreatedCommentID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastCreatedCommentID(value: BigInt | null) {
+    if (!value) {
+      this.unset("lastCreatedCommentID");
+    } else {
+      this.set("lastCreatedCommentID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get group(): string {
+    let value = this.get("group");
+    return value!.toString();
+  }
+
+  set group(value: string) {
+    this.set("group", Value.fromString(value));
+  }
+
+  get userStatus(): boolean {
+    let value = this.get("userStatus");
+    return value!.toBoolean();
+  }
+
+  set userStatus(value: boolean) {
+    this.set("userStatus", Value.fromBoolean(value));
+  }
+
+  get numberOfReports(): i32 {
+    let value = this.get("numberOfReports");
+    return value!.toI32();
+  }
+
+  set numberOfReports(value: i32) {
+    this.set("numberOfReports", Value.fromI32(value));
+  }
+}
+
+export class Poll extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Poll entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Poll must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Poll", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Poll | null {
+    return changetype<Poll | null>(store.get("Poll", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get integerID(): BigInt {
+    let value = this.get("integerID");
+    return value!.toBigInt();
+  }
+
+  set integerID(value: BigInt) {
+    this.set("integerID", Value.fromBigInt(value));
+  }
+
+  get options(): Array<string> | null {
+    let value = this.get("options");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set options(value: Array<string> | null) {
+    if (!value) {
+      this.unset("options");
+    } else {
+      this.set("options", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get votes(): Array<string> | null {
+    let value = this.get("votes");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set votes(value: Array<string> | null) {
+    if (!value) {
+      this.unset("votes");
+    } else {
+      this.set("votes", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get firstCreatedVoteID(): BigInt | null {
+    let value = this.get("firstCreatedVoteID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set firstCreatedVoteID(value: BigInt | null) {
+    if (!value) {
+      this.unset("firstCreatedVoteID");
+    } else {
+      this.set("firstCreatedVoteID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get lastCreatedVoteID(): BigInt | null {
+    let value = this.get("lastCreatedVoteID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastCreatedVoteID(value: BigInt | null) {
+    if (!value) {
+      this.unset("lastCreatedVoteID");
+    } else {
+      this.set("lastCreatedVoteID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get singleOption(): boolean {
+    let value = this.get("singleOption");
+    return value!.toBoolean();
+  }
+
+  set singleOption(value: boolean) {
+    this.set("singleOption", Value.fromBoolean(value));
+  }
+}
+
+export class Vote extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Vote entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Vote must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Vote", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Vote | null {
+    return changetype<Vote | null>(store.get("Vote", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get integerID(): BigInt {
+    let value = this.get("integerID");
+    return value!.toBigInt();
+  }
+
+  set integerID(value: BigInt) {
+    this.set("integerID", Value.fromBigInt(value));
+  }
+
+  get user(): string {
+    let value = this.get("user");
+    return value!.toString();
+  }
+
+  set user(value: string) {
+    this.set("user", Value.fromString(value));
+  }
+
+  get removed(): boolean {
+    let value = this.get("removed");
+    return value!.toBoolean();
+  }
+
+  set removed(value: boolean) {
+    this.set("removed", Value.fromBoolean(value));
+  }
+
+  get chosenOption(): BigInt {
+    let value = this.get("chosenOption");
+    return value!.toBigInt();
+  }
+
+  set chosenOption(value: BigInt) {
+    this.set("chosenOption", Value.fromBigInt(value));
   }
 }
 
@@ -188,6 +624,40 @@ export class User extends Entity {
 
   set userId(value: BigInt) {
     this.set("userId", Value.fromBigInt(value));
+  }
+
+  get firstCreatedPostID(): BigInt | null {
+    let value = this.get("firstCreatedPostID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set firstCreatedPostID(value: BigInt | null) {
+    if (!value) {
+      this.unset("firstCreatedPostID");
+    } else {
+      this.set("firstCreatedPostID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get lastCreatedPostID(): BigInt | null {
+    let value = this.get("lastCreatedPostID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastCreatedPostID(value: BigInt | null) {
+    if (!value) {
+      this.unset("lastCreatedPostID");
+    } else {
+      this.set("lastCreatedPostID", Value.fromBigInt(<BigInt>value));
+    }
   }
 
   get followedGroups(): Array<string> | null {
@@ -438,8 +908,8 @@ export class User extends Entity {
     }
   }
 
-  get pictureUpload(): string | null {
-    let value = this.get("pictureUpload");
+  get profilePicCid(): string | null {
+    let value = this.get("profilePicCid");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -447,28 +917,28 @@ export class User extends Entity {
     }
   }
 
-  set pictureUpload(value: string | null) {
+  set profilePicCid(value: string | null) {
     if (!value) {
-      this.unset("pictureUpload");
+      this.unset("profilePicCid");
     } else {
-      this.set("pictureUpload", Value.fromString(<string>value));
+      this.set("profilePicCid", Value.fromString(<string>value));
     }
   }
 
-  get nftAddress(): Bytes | null {
+  get nftAddress(): string | null {
     let value = this.get("nftAddress");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set nftAddress(value: Bytes | null) {
+  set nftAddress(value: string | null) {
     if (!value) {
       this.unset("nftAddress");
     } else {
-      this.set("nftAddress", Value.fromBytes(<Bytes>value));
+      this.set("nftAddress", Value.fromString(<string>value));
     }
   }
 
@@ -710,22 +1180,47 @@ export class User extends Entity {
     }
   }
 
-  get posts(): Array<string> {
+  get posts(): Array<string> | null {
     let value = this.get("posts");
-    return value!.toStringArray();
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
   }
 
-  set posts(value: Array<string>) {
-    this.set("posts", Value.fromStringArray(value));
+  set posts(value: Array<string> | null) {
+    if (!value) {
+      this.unset("posts");
+    } else {
+      this.set("posts", Value.fromStringArray(<Array<string>>value));
+    }
   }
 
-  get groups(): Array<string> {
-    let value = this.get("groups");
-    return value!.toStringArray();
+  get bannedGroupsCount(): i32 {
+    let value = this.get("bannedGroupsCount");
+    return value!.toI32();
   }
 
-  set groups(value: Array<string>) {
-    this.set("groups", Value.fromStringArray(value));
+  set bannedGroupsCount(value: i32) {
+    this.set("bannedGroupsCount", Value.fromI32(value));
+  }
+
+  get postEntity(): string | null {
+    let value = this.get("postEntity");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set postEntity(value: string | null) {
+    if (!value) {
+      this.unset("postEntity");
+    } else {
+      this.set("postEntity", Value.fromString(<string>value));
+    }
   }
 
   get deleted(): boolean {
@@ -735,6 +1230,92 @@ export class User extends Entity {
 
   set deleted(value: boolean) {
     this.set("deleted", Value.fromBoolean(value));
+  }
+
+  get profilePostsNFTaddress(): string | null {
+    let value = this.get("profilePostsNFTaddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set profilePostsNFTaddress(value: string | null) {
+    if (!value) {
+      this.unset("profilePostsNFTaddress");
+    } else {
+      this.set("profilePostsNFTaddress", Value.fromString(<string>value));
+    }
+  }
+
+  get numberOfMintedPosts(): i32 {
+    let value = this.get("numberOfMintedPosts");
+    return value!.toI32();
+  }
+
+  set numberOfMintedPosts(value: i32) {
+    this.set("numberOfMintedPosts", Value.fromI32(value));
+  }
+
+  get firstCreatedGroupID(): BigInt | null {
+    let value = this.get("firstCreatedGroupID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set firstCreatedGroupID(value: BigInt | null) {
+    if (!value) {
+      this.unset("firstCreatedGroupID");
+    } else {
+      this.set("firstCreatedGroupID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get lastCreatedGroupID(): BigInt | null {
+    let value = this.get("lastCreatedGroupID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastCreatedGroupID(value: BigInt | null) {
+    if (!value) {
+      this.unset("lastCreatedGroupID");
+    } else {
+      this.set("lastCreatedGroupID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get status(): boolean {
+    let value = this.get("status");
+    return value!.toBoolean();
+  }
+
+  set status(value: boolean) {
+    this.set("status", Value.fromBoolean(value));
+  }
+
+  get readKey(): string | null {
+    let value = this.get("readKey");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set readKey(value: string | null) {
+    if (!value) {
+      this.unset("readKey");
+    } else {
+      this.set("readKey", Value.fromString(<string>value));
+    }
   }
 }
 
@@ -767,6 +1348,41 @@ export class Group extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get integerID(): BigInt {
+    let value = this.get("integerID");
+    return value!.toBigInt();
+  }
+
+  set integerID(value: BigInt) {
+    this.set("integerID", Value.fromBigInt(value));
+  }
+
+  get followers(): Array<string> | null {
+    let value = this.get("followers");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set followers(value: Array<string> | null) {
+    if (!value) {
+      this.unset("followers");
+    } else {
+      this.set("followers", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get numberOfFollowers(): i32 {
+    let value = this.get("numberOfFollowers");
+    return value!.toI32();
+  }
+
+  set numberOfFollowers(value: i32) {
+    this.set("numberOfFollowers", Value.fromI32(value));
   }
 
   get name(): string {
@@ -813,8 +1429,8 @@ export class Group extends Entity {
     }
   }
 
-  get members(): Array<string> | null {
-    let value = this.get("members");
+  get posts(): Array<string> | null {
+    let value = this.get("posts");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -822,29 +1438,30 @@ export class Group extends Entity {
     }
   }
 
-  set members(value: Array<string> | null) {
+  set posts(value: Array<string> | null) {
     if (!value) {
-      this.unset("members");
+      this.unset("posts");
     } else {
-      this.set("members", Value.fromStringArray(<Array<string>>value));
+      this.set("posts", Value.fromStringArray(<Array<string>>value));
     }
   }
 
-  get pendingMembers(): Array<string> | null {
-    let value = this.get("pendingMembers");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
+  get bannedUsersCount(): i32 {
+    let value = this.get("bannedUsersCount");
+    return value!.toI32();
   }
 
-  set pendingMembers(value: Array<string> | null) {
-    if (!value) {
-      this.unset("pendingMembers");
-    } else {
-      this.set("pendingMembers", Value.fromStringArray(<Array<string>>value));
-    }
+  set bannedUsersCount(value: i32) {
+    this.set("bannedUsersCount", Value.fromI32(value));
+  }
+
+  get isPrivate(): boolean {
+    let value = this.get("isPrivate");
+    return value!.toBoolean();
+  }
+
+  set isPrivate(value: boolean) {
+    this.set("isPrivate", Value.fromBoolean(value));
   }
 
   get deleted(): boolean {
@@ -854,5 +1471,416 @@ export class Group extends Entity {
 
   set deleted(value: boolean) {
     this.set("deleted", Value.fromBoolean(value));
+  }
+
+  get post(): string {
+    let value = this.get("post");
+    return value!.toString();
+  }
+
+  set post(value: string) {
+    this.set("post", Value.fromString(value));
+  }
+}
+
+export class Comment extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Comment entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Comment must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Comment", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Comment | null {
+    return changetype<Comment | null>(store.get("Comment", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get integerID(): BigInt {
+    let value = this.get("integerID");
+    return value!.toBigInt();
+  }
+
+  set integerID(value: BigInt) {
+    this.set("integerID", Value.fromBigInt(value));
+  }
+
+  get author(): string {
+    let value = this.get("author");
+    return value!.toString();
+  }
+
+  set author(value: string) {
+    this.set("author", Value.fromString(value));
+  }
+
+  get body(): string {
+    let value = this.get("body");
+    return value!.toString();
+  }
+
+  set body(value: string) {
+    this.set("body", Value.fromString(value));
+  }
+
+  get post(): string {
+    let value = this.get("post");
+    return value!.toString();
+  }
+
+  set post(value: string) {
+    this.set("post", Value.fromString(value));
+  }
+
+  get likes(): i32 {
+    let value = this.get("likes");
+    return value!.toI32();
+  }
+
+  set likes(value: i32) {
+    this.set("likes", Value.fromI32(value));
+  }
+
+  get likers(): Array<string> | null {
+    let value = this.get("likers");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set likers(value: Array<string> | null) {
+    if (!value) {
+      this.unset("likers");
+    } else {
+      this.set("likers", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get createdAt(): BigInt | null {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set createdAt(value: BigInt | null) {
+    if (!value) {
+      this.unset("createdAt");
+    } else {
+      this.set("createdAt", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get editedAt(): BigInt | null {
+    let value = this.get("editedAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set editedAt(value: BigInt | null) {
+    if (!value) {
+      this.unset("editedAt");
+    } else {
+      this.set("editedAt", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get taggedPeople(): Array<string> | null {
+    let value = this.get("taggedPeople");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set taggedPeople(value: Array<string> | null) {
+    if (!value) {
+      this.unset("taggedPeople");
+    } else {
+      this.set("taggedPeople", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get taggedGroups(): Array<string> | null {
+    let value = this.get("taggedGroups");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set taggedGroups(value: Array<string> | null) {
+    if (!value) {
+      this.unset("taggedGroups");
+    } else {
+      this.set("taggedGroups", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get replies(): Array<string> | null {
+    let value = this.get("replies");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set replies(value: Array<string> | null) {
+    if (!value) {
+      this.unset("replies");
+    } else {
+      this.set("replies", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get numberOfReplies(): i32 {
+    let value = this.get("numberOfReplies");
+    return value!.toI32();
+  }
+
+  set numberOfReplies(value: i32) {
+    this.set("numberOfReplies", Value.fromI32(value));
+  }
+
+  get firstCreatedReplyID(): BigInt | null {
+    let value = this.get("firstCreatedReplyID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set firstCreatedReplyID(value: BigInt | null) {
+    if (!value) {
+      this.unset("firstCreatedReplyID");
+    } else {
+      this.set("firstCreatedReplyID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get lastCreatedReplyID(): BigInt | null {
+    let value = this.get("lastCreatedReplyID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set lastCreatedReplyID(value: BigInt | null) {
+    if (!value) {
+      this.unset("lastCreatedReplyID");
+    } else {
+      this.set("lastCreatedReplyID", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get numberOfReports(): i32 {
+    let value = this.get("numberOfReports");
+    return value!.toI32();
+  }
+
+  set numberOfReports(value: i32) {
+    this.set("numberOfReports", Value.fromI32(value));
+  }
+}
+
+export class Reply extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Reply entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type Reply must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("Reply", id.toString(), this);
+    }
+  }
+
+  static load(id: string): Reply | null {
+    return changetype<Reply | null>(store.get("Reply", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value!.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get integerID(): BigInt {
+    let value = this.get("integerID");
+    return value!.toBigInt();
+  }
+
+  set integerID(value: BigInt) {
+    this.set("integerID", Value.fromBigInt(value));
+  }
+
+  get author(): string {
+    let value = this.get("author");
+    return value!.toString();
+  }
+
+  set author(value: string) {
+    this.set("author", Value.fromString(value));
+  }
+
+  get body(): string {
+    let value = this.get("body");
+    return value!.toString();
+  }
+
+  set body(value: string) {
+    this.set("body", Value.fromString(value));
+  }
+
+  get comment(): string {
+    let value = this.get("comment");
+    return value!.toString();
+  }
+
+  set comment(value: string) {
+    this.set("comment", Value.fromString(value));
+  }
+
+  get likes(): i32 {
+    let value = this.get("likes");
+    return value!.toI32();
+  }
+
+  set likes(value: i32) {
+    this.set("likes", Value.fromI32(value));
+  }
+
+  get likers(): Array<string> | null {
+    let value = this.get("likers");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set likers(value: Array<string> | null) {
+    if (!value) {
+      this.unset("likers");
+    } else {
+      this.set("likers", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get createdAt(): BigInt | null {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set createdAt(value: BigInt | null) {
+    if (!value) {
+      this.unset("createdAt");
+    } else {
+      this.set("createdAt", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get editedAt(): BigInt | null {
+    let value = this.get("editedAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set editedAt(value: BigInt | null) {
+    if (!value) {
+      this.unset("editedAt");
+    } else {
+      this.set("editedAt", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get taggedPeople(): Array<string> | null {
+    let value = this.get("taggedPeople");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set taggedPeople(value: Array<string> | null) {
+    if (!value) {
+      this.unset("taggedPeople");
+    } else {
+      this.set("taggedPeople", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get taggedGroups(): Array<string> | null {
+    let value = this.get("taggedGroups");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set taggedGroups(value: Array<string> | null) {
+    if (!value) {
+      this.unset("taggedGroups");
+    } else {
+      this.set("taggedGroups", Value.fromStringArray(<Array<string>>value));
+    }
+  }
+
+  get numberOfReports(): i32 {
+    let value = this.get("numberOfReports");
+    return value!.toI32();
+  }
+
+  set numberOfReports(value: i32) {
+    this.set("numberOfReports", Value.fromI32(value));
   }
 }

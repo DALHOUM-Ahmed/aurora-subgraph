@@ -12,7 +12,7 @@ import {
   SetLastName as SetLastNameEvent,
   SetMiddleName as SetMiddleNameEvent,
   SetPictureNFT as SetPictureNFTEvent,
-  SetPictureUpload as SetPictureUploadEvent,
+  SetphotoCID as SetphotoCIDEvent,
   SetTelephone as SetTelephoneEvent,
   SetTelephoneVerifiedData as SetTelephoneVerifiedDataEvent,
   SetTiktok as SetTiktokEvent,
@@ -23,7 +23,10 @@ import {
   UnFollow as UnFollowEvent,
   SignupTags as SignupTagsEvent,
   SetBackgroundColor as SetBackgroundColorEvent,
-  SetTags as SetTagsEvent
+  SetTags as SetTagsEvent,
+  SetPronoun as SetPronounEvent,
+  SetStatus as SetStatusEvent,
+  SetReadKey as SetReadKeyEvent
 } from "../generated/users/users";
 import { User, Post } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
@@ -32,7 +35,6 @@ import { log } from "@graphprotocol/graph-ts";
 export function handleUnFollow(event: UnFollowEvent): void {
   let follower = User.load(event.params.follower.toString());
   let followed = User.load(event.params.followed.toString());
-  log.info("within follow handeling", ["hjkdfsfsdl"]);
   if (follower === null || followed === null) {
     return;
   }
@@ -40,10 +42,6 @@ export function handleUnFollow(event: UnFollowEvent): void {
   var newFollowers: string[] = [];
   for (let i = 0; i < followed.followers!.length; i++) {
     if (parseInt(followed.followers![i]) !== parseInt(follower.id)) {
-      log.info(
-        "5252 follower different " + followed.followers![i] + "|" + follower.id,
-        ["1"]
-      );
       newFollowers = newFollowers.concat([followed.followers![i]]);
     }
   }
@@ -52,24 +50,13 @@ export function handleUnFollow(event: UnFollowEvent): void {
   var newFollowings: string[] = [];
   for (let i = 0; i < follower.followedUsers!.length; i++) {
     if (parseInt(follower.followedUsers![i]) !== parseInt(followed.id)) {
-      log.info(
-        "5252 followed different " +
-          follower.followedUsers![i] +
-          "|" +
-          followed.id,
-        ["1"]
-      );
       newFollowings = newFollowings.concat([follower.followedUsers![i]]);
     }
   }
   follower.followedUsers = newFollowings;
 
-  log.info("123456789", ["1"]);
-
   if (follower.followedUsersCount === 0 || followed.followingUsersCount === 0)
     return;
-
-  log.info("987654321", ["1"]);
 
   follower.followedUsersCount -= 1;
   followed.followingUsersCount -= 1;
@@ -101,6 +88,33 @@ export function handleFollow(event: FollowEvent): void {
 
   follower.save();
   followed.save();
+}
+
+export function handleSetPronoun(event: SetPronounEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+
+  if (event.params.pronoun == 1) {
+    entity.pronoun = "I";
+  } else if (event.params.pronoun == 2) {
+    entity.pronoun = "YOU";
+  } else if (event.params.pronoun == 3) {
+    entity.pronoun = "SHE";
+  } else if (event.params.pronoun == 4) {
+    entity.pronoun = "HE";
+  } else if (event.params.pronoun == 5) {
+    entity.pronoun = "IT";
+  } else if (event.params.pronoun == 6) {
+    entity.pronoun = "WE";
+  } else if (event.params.pronoun == 7) {
+    entity.pronoun = "THEY";
+  } else if (event.params.pronoun == 0) {
+    entity.pronoun = null;
+  }
+
+  entity.save();
 }
 
 export function handleSetFingerScan(event: SetFingerScanEvent): void {
@@ -155,12 +169,38 @@ export function handleSetTelephoneVerifiedData(
   entity.save();
 }
 
-export function handleSetPictureUpload(event: SetPictureUploadEvent): void {
+export function handleSetphotoCID(event: SetphotoCIDEvent): void {
   let entity = User.load(event.params.userId.toString());
   if (entity === null) {
     return;
   }
-  entity.pictureUpload = event.params.url;
+  entity.profilePicCid = event.params.url;
+
+  entity.save();
+}
+
+export function handleSetStatus(event: SetStatusEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.status = event.params.status;
+
+  for (let i = 0; i < entity.posts!.length; i++) {
+    let post = Post.load(entity.posts![i]);
+    post!.userStatus = event.params.status;
+    post!.save();
+  }
+
+  entity.save();
+}
+
+export function handleSetReadKey(event: SetReadKeyEvent): void {
+  let entity = User.load(event.params.userId.toString());
+  if (entity === null) {
+    return;
+  }
+  entity.readKey = event.params.readKey;
 
   entity.save();
 }
@@ -170,7 +210,7 @@ export function handleSetPictureNFT(event: SetPictureNFTEvent): void {
   if (entity === null) {
     return;
   }
-  entity.nftAddress = event.params.nftAddress;
+  entity.nftAddress = event.params.nftAddress.toString();
   entity.ownedID = event.params.id;
 
   entity.save();
@@ -306,10 +346,15 @@ export function handleSignupBasic(event: SignupBasicEvent): void {
   entity.tiktok = event.params.socialInfo[3].toString();
   entity.email = event.params.userContact[0].toString();
   entity.telephone = event.params.userContact[1].toString();
+  entity.bannedGroupsCount = 0;
+  entity.followedGroupsCount = 0;
+
+  entity.status = true;
 
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;
   entity.transactionHash = event.transaction.hash;
+  entity.numberOfMintedPosts = 0;
 
   entity.save();
 }
@@ -340,15 +385,17 @@ export function handleSignupProfileInfo(event: SignupProfileInfoEvent): void {
 
   entity.dateOfBirth = event.params.dateOfBirth;
   entity.backgroundColor = event.params.profile[0];
-  entity.pictureUpload = event.params.profile[1];
+  entity.profilePicCid = event.params.profile[1];
   entity.bio = event.params.bio;
-  entity.nftAddress = event.params.nftAddress;
+  entity.nftAddress = event.params.nftAddress.toString();
   entity.ownedID = event.params.ownedID;
   entity.govtID = event.params.verificationData[0];
   entity.fingerScan = event.params.verificationData[1];
 
   entity.followedUsers = [];
   entity.followers = [];
+  entity.posts = [];
+  entity.followedGroups = [];
 
   entity.save();
 }

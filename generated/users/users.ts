@@ -32,6 +32,28 @@ export class Follow__Params {
   }
 }
 
+export class SetBTCAddress extends ethereum.Event {
+  get params(): SetBTCAddress__Params {
+    return new SetBTCAddress__Params(this);
+  }
+}
+
+export class SetBTCAddress__Params {
+  _event: SetBTCAddress;
+
+  constructor(event: SetBTCAddress) {
+    this._event = event;
+  }
+
+  get userId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get btcAddress(): string {
+    return this._event.parameters[1].value.toString();
+  }
+}
+
 export class SetBackgroundColor extends ethereum.Event {
   get params(): SetBackgroundColor__Params {
     return new SetBackgroundColor__Params(this);
@@ -322,16 +344,16 @@ export class SetPictureNFT__Params {
   }
 }
 
-export class SetPictureUpload extends ethereum.Event {
-  get params(): SetPictureUpload__Params {
-    return new SetPictureUpload__Params(this);
+export class SetPronoun extends ethereum.Event {
+  get params(): SetPronoun__Params {
+    return new SetPronoun__Params(this);
   }
 }
 
-export class SetPictureUpload__Params {
-  _event: SetPictureUpload;
+export class SetPronoun__Params {
+  _event: SetPronoun;
 
-  constructor(event: SetPictureUpload) {
+  constructor(event: SetPronoun) {
     this._event = event;
   }
 
@@ -339,8 +361,52 @@ export class SetPictureUpload__Params {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get url(): string {
+  get pronoun(): i32 {
+    return this._event.parameters[1].value.toI32();
+  }
+}
+
+export class SetReadKey extends ethereum.Event {
+  get params(): SetReadKey__Params {
+    return new SetReadKey__Params(this);
+  }
+}
+
+export class SetReadKey__Params {
+  _event: SetReadKey;
+
+  constructor(event: SetReadKey) {
+    this._event = event;
+  }
+
+  get userId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get readKey(): string {
     return this._event.parameters[1].value.toString();
+  }
+}
+
+export class SetStatus extends ethereum.Event {
+  get params(): SetStatus__Params {
+    return new SetStatus__Params(this);
+  }
+}
+
+export class SetStatus__Params {
+  _event: SetStatus;
+
+  constructor(event: SetStatus) {
+    this._event = event;
+  }
+
+  get userId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get status(): boolean {
+    return this._event.parameters[1].value.toBoolean();
   }
 }
 
@@ -476,6 +542,28 @@ export class SetUsername__Params {
   }
 }
 
+export class SetphotoCID extends ethereum.Event {
+  get params(): SetphotoCID__Params {
+    return new SetphotoCID__Params(this);
+  }
+}
+
+export class SetphotoCID__Params {
+  _event: SetphotoCID;
+
+  constructor(event: SetphotoCID) {
+    this._event = event;
+  }
+
+  get userId(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get url(): string {
+    return this._event.parameters[1].value.toString();
+  }
+}
+
 export class SignupBasic extends ethereum.Event {
   get params(): SignupBasic__Params {
     return new SignupBasic__Params(this);
@@ -600,6 +688,16 @@ export class UnFollow__Params {
   }
 }
 
+export class users__getNFTOwnedByResultValue0Struct extends ethereum.Tuple {
+  get nftAddress(): Address {
+    return this[0].toAddress();
+  }
+
+  get ownedID(): BigInt {
+    return this[1].toBigInt();
+  }
+}
+
 export class users__signupInputOwnedNFTStruct extends ethereum.Tuple {
   get nftAddress(): Address {
     return this[0].toAddress();
@@ -706,7 +804,7 @@ export class users__userByIDResult {
     return this.value7;
   }
 
-  getPictureUpload(): string {
+  getPhotoCID(): string {
     return this.value8;
   }
 
@@ -833,57 +931,6 @@ export class users extends ethereum.SmartContract {
     return new users("users", address);
   }
 
-  signup(
-    data: Array<string>,
-    dateOfBirth: BigInt,
-    pronoun: i32,
-    tags: Array<string>,
-    fields: Array<i32>,
-    ownedNFT: users__signupInputOwnedNFTStruct
-  ): BigInt {
-    let result = super.call(
-      "signup",
-      "signup(string[],uint256,uint8,string[],uint8[],(address,uint256)):(uint256)",
-      [
-        ethereum.Value.fromStringArray(data),
-        ethereum.Value.fromUnsignedBigInt(dateOfBirth),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(pronoun)),
-        ethereum.Value.fromStringArray(tags),
-        ethereum.Value.fromI32Array(fields),
-        ethereum.Value.fromTuple(ownedNFT)
-      ]
-    );
-
-    return result[0].toBigInt();
-  }
-
-  try_signup(
-    data: Array<string>,
-    dateOfBirth: BigInt,
-    pronoun: i32,
-    tags: Array<string>,
-    fields: Array<i32>,
-    ownedNFT: users__signupInputOwnedNFTStruct
-  ): ethereum.CallResult<BigInt> {
-    let result = super.tryCall(
-      "signup",
-      "signup(string[],uint256,uint8,string[],uint8[],(address,uint256)):(uint256)",
-      [
-        ethereum.Value.fromStringArray(data),
-        ethereum.Value.fromUnsignedBigInt(dateOfBirth),
-        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(pronoun)),
-        ethereum.Value.fromStringArray(tags),
-        ethereum.Value.fromI32Array(fields),
-        ethereum.Value.fromTuple(ownedNFT)
-      ]
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
   addressById(param0: BigInt): Address {
     let result = super.call("addressById", "addressById(uint256):(address)", [
       ethereum.Value.fromUnsignedBigInt(param0)
@@ -924,6 +971,96 @@ export class users extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  btcAddress(param0: Address): string {
+    let result = super.call("btcAddress", "btcAddress(address):(string)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toString();
+  }
+
+  try_btcAddress(param0: Address): ethereum.CallResult<string> {
+    let result = super.tryCall("btcAddress", "btcAddress(address):(string)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  getNFTOwnedBy(userID: BigInt): users__getNFTOwnedByResultValue0Struct {
+    let result = super.call(
+      "getNFTOwnedBy",
+      "getNFTOwnedBy(uint256):((address,uint256))",
+      [ethereum.Value.fromUnsignedBigInt(userID)]
+    );
+
+    return changetype<users__getNFTOwnedByResultValue0Struct>(
+      result[0].toTuple()
+    );
+  }
+
+  try_getNFTOwnedBy(
+    userID: BigInt
+  ): ethereum.CallResult<users__getNFTOwnedByResultValue0Struct> {
+    let result = super.tryCall(
+      "getNFTOwnedBy",
+      "getNFTOwnedBy(uint256):((address,uint256))",
+      [ethereum.Value.fromUnsignedBigInt(userID)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      changetype<users__getNFTOwnedByResultValue0Struct>(value[0].toTuple())
+    );
+  }
+
+  getSignedUser(sessionHash: Bytes): Address {
+    let result = super.call(
+      "getSignedUser",
+      "getSignedUser(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(sessionHash)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getSignedUser(sessionHash: Bytes): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getSignedUser",
+      "getSignedUser(bytes32):(address)",
+      [ethereum.Value.fromFixedBytes(sessionHash)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getStatus(user: Address): boolean {
+    let result = super.call("getStatus", "getStatus(address):(bool)", [
+      ethereum.Value.fromAddress(user)
+    ]);
+
+    return result[0].toBoolean();
+  }
+
+  try_getStatus(user: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall("getStatus", "getStatus(address):(bool)", [
+      ethereum.Value.fromAddress(user)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
   idByAddress(param0: Address): BigInt {
     let result = super.call("idByAddress", "idByAddress(address):(uint256)", [
       ethereum.Value.fromAddress(param0)
@@ -937,6 +1074,27 @@ export class users extends ethereum.SmartContract {
       "idByAddress",
       "idByAddress(address):(uint256)",
       [ethereum.Value.fromAddress(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  idByUserName(param0: string): BigInt {
+    let result = super.call("idByUserName", "idByUserName(string):(uint256)", [
+      ethereum.Value.fromString(param0)
+    ]);
+
+    return result[0].toBigInt();
+  }
+
+  try_idByUserName(param0: string): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "idByUserName",
+      "idByUserName(string):(uint256)",
+      [ethereum.Value.fromString(param0)]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -975,6 +1133,80 @@ export class users extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  name(): string {
+    let result = super.call("name", "name():(string)", []);
+
+    return result[0].toString();
+  }
+
+  try_name(): ethereum.CallResult<string> {
+    let result = super.tryCall("name", "name():(string)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
+  signup(
+    proofOfSignature: Bytes,
+    userAddress: Address,
+    data: Array<string>,
+    dateOfBirth: BigInt,
+    pronoun: i32,
+    tags: Array<string>,
+    fields: Array<i32>,
+    ownedNFT: users__signupInputOwnedNFTStruct
+  ): BigInt {
+    let result = super.call(
+      "signup",
+      "signup(bytes32,address,string[],uint256,uint8,string[],uint8[],(address,uint256)):(uint256)",
+      [
+        ethereum.Value.fromFixedBytes(proofOfSignature),
+        ethereum.Value.fromAddress(userAddress),
+        ethereum.Value.fromStringArray(data),
+        ethereum.Value.fromUnsignedBigInt(dateOfBirth),
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(pronoun)),
+        ethereum.Value.fromStringArray(tags),
+        ethereum.Value.fromI32Array(fields),
+        ethereum.Value.fromTuple(ownedNFT)
+      ]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_signup(
+    proofOfSignature: Bytes,
+    userAddress: Address,
+    data: Array<string>,
+    dateOfBirth: BigInt,
+    pronoun: i32,
+    tags: Array<string>,
+    fields: Array<i32>,
+    ownedNFT: users__signupInputOwnedNFTStruct
+  ): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "signup",
+      "signup(bytes32,address,string[],uint256,uint8,string[],uint8[],(address,uint256)):(uint256)",
+      [
+        ethereum.Value.fromFixedBytes(proofOfSignature),
+        ethereum.Value.fromAddress(userAddress),
+        ethereum.Value.fromStringArray(data),
+        ethereum.Value.fromUnsignedBigInt(dateOfBirth),
+        ethereum.Value.fromUnsignedBigInt(BigInt.fromI32(pronoun)),
+        ethereum.Value.fromStringArray(tags),
+        ethereum.Value.fromI32Array(fields),
+        ethereum.Value.fromTuple(ownedNFT)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   userByID(param0: BigInt): users__userByIDResult {
@@ -1061,18 +1293,22 @@ export class users extends ethereum.SmartContract {
     );
   }
 
-  userExists(userId: BigInt): boolean {
-    let result = super.call("userExists", "userExists(uint256):(bool)", [
-      ethereum.Value.fromUnsignedBigInt(userId)
-    ]);
+  userInversedStatus(param0: Address): boolean {
+    let result = super.call(
+      "userInversedStatus",
+      "userInversedStatus(address):(bool)",
+      [ethereum.Value.fromAddress(param0)]
+    );
 
     return result[0].toBoolean();
   }
 
-  try_userExists(userId: BigInt): ethereum.CallResult<boolean> {
-    let result = super.tryCall("userExists", "userExists(uint256):(bool)", [
-      ethereum.Value.fromUnsignedBigInt(userId)
-    ]);
+  try_userInversedStatus(param0: Address): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "userInversedStatus",
+      "userInversedStatus(address):(bool)",
+      [ethereum.Value.fromAddress(param0)]
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -1111,6 +1347,25 @@ export class users extends ethereum.SmartContract {
         value[1].toString()
       )
     );
+  }
+
+  userReadKey(param0: Address): string {
+    let result = super.call("userReadKey", "userReadKey(address):(string)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+
+    return result[0].toString();
+  }
+
+  try_userReadKey(param0: Address): ethereum.CallResult<string> {
+    let result = super.tryCall("userReadKey", "userReadKey(address):(string)", [
+      ethereum.Value.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
   }
 
   userSocialsByID(param0: BigInt): users__userSocialsByIDResult {
@@ -1219,66 +1474,6 @@ export class users extends ethereum.SmartContract {
   }
 }
 
-export class FollowCall extends ethereum.Call {
-  get inputs(): FollowCall__Inputs {
-    return new FollowCall__Inputs(this);
-  }
-
-  get outputs(): FollowCall__Outputs {
-    return new FollowCall__Outputs(this);
-  }
-}
-
-export class FollowCall__Inputs {
-  _call: FollowCall;
-
-  constructor(call: FollowCall) {
-    this._call = call;
-  }
-
-  get followed(): BigInt {
-    return this._call.inputValues[0].value.toBigInt();
-  }
-}
-
-export class FollowCall__Outputs {
-  _call: FollowCall;
-
-  constructor(call: FollowCall) {
-    this._call = call;
-  }
-}
-
-export class SetBackgroundColorCall extends ethereum.Call {
-  get inputs(): SetBackgroundColorCall__Inputs {
-    return new SetBackgroundColorCall__Inputs(this);
-  }
-
-  get outputs(): SetBackgroundColorCall__Outputs {
-    return new SetBackgroundColorCall__Outputs(this);
-  }
-}
-
-export class SetBackgroundColorCall__Inputs {
-  _call: SetBackgroundColorCall;
-
-  constructor(call: SetBackgroundColorCall) {
-    this._call = call;
-  }
-
-  get _backgroundColor(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetBackgroundColorCall__Outputs {
-  _call: SetBackgroundColorCall;
-
-  constructor(call: SetBackgroundColorCall) {
-    this._call = call;
-  }
-}
-
 export class ConstructorCall extends ethereum.Call {
   get inputs(): ConstructorCall__Inputs {
     return new ConstructorCall__Inputs(this);
@@ -1309,584 +1504,264 @@ export class ConstructorCall__Outputs {
   }
 }
 
-export class SetBioCall extends ethereum.Call {
-  get inputs(): SetBioCall__Inputs {
-    return new SetBioCall__Inputs(this);
+export class ExpireAndEraseSessionCall extends ethereum.Call {
+  get inputs(): ExpireAndEraseSessionCall__Inputs {
+    return new ExpireAndEraseSessionCall__Inputs(this);
   }
 
-  get outputs(): SetBioCall__Outputs {
-    return new SetBioCall__Outputs(this);
+  get outputs(): ExpireAndEraseSessionCall__Outputs {
+    return new ExpireAndEraseSessionCall__Outputs(this);
   }
 }
 
-export class SetBioCall__Inputs {
-  _call: SetBioCall;
+export class ExpireAndEraseSessionCall__Inputs {
+  _call: ExpireAndEraseSessionCall;
 
-  constructor(call: SetBioCall) {
+  constructor(call: ExpireAndEraseSessionCall) {
     this._call = call;
   }
 
-  get bio(): string {
-    return this._call.inputValues[0].value.toString();
+  get expiredSession(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
+  }
+
+  get user(): Address {
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 
-export class SetBioCall__Outputs {
-  _call: SetBioCall;
+export class ExpireAndEraseSessionCall__Outputs {
+  _call: ExpireAndEraseSessionCall;
 
-  constructor(call: SetBioCall) {
+  constructor(call: ExpireAndEraseSessionCall) {
     this._call = call;
   }
 }
 
-export class SetDateOfBirthCall extends ethereum.Call {
-  get inputs(): SetDateOfBirthCall__Inputs {
-    return new SetDateOfBirthCall__Inputs(this);
+export class ExpireSessionCall extends ethereum.Call {
+  get inputs(): ExpireSessionCall__Inputs {
+    return new ExpireSessionCall__Inputs(this);
   }
 
-  get outputs(): SetDateOfBirthCall__Outputs {
-    return new SetDateOfBirthCall__Outputs(this);
+  get outputs(): ExpireSessionCall__Outputs {
+    return new ExpireSessionCall__Outputs(this);
   }
 }
 
-export class SetDateOfBirthCall__Inputs {
-  _call: SetDateOfBirthCall;
+export class ExpireSessionCall__Inputs {
+  _call: ExpireSessionCall;
 
-  constructor(call: SetDateOfBirthCall) {
+  constructor(call: ExpireSessionCall) {
     this._call = call;
   }
 
-  get _dateOfBirth(): BigInt {
+  get expiredSession(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+}
+
+export class ExpireSessionCall__Outputs {
+  _call: ExpireSessionCall;
+
+  constructor(call: ExpireSessionCall) {
+    this._call = call;
+  }
+}
+
+export class FollowCall extends ethereum.Call {
+  get inputs(): FollowCall__Inputs {
+    return new FollowCall__Inputs(this);
+  }
+
+  get outputs(): FollowCall__Outputs {
+    return new FollowCall__Outputs(this);
+  }
+}
+
+export class FollowCall__Inputs {
+  _call: FollowCall;
+
+  constructor(call: FollowCall) {
+    this._call = call;
+  }
+
+  get follower(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
   }
+
+  get followed(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
 }
 
-export class SetDateOfBirthCall__Outputs {
-  _call: SetDateOfBirthCall;
+export class FollowCall__Outputs {
+  _call: FollowCall;
 
-  constructor(call: SetDateOfBirthCall) {
+  constructor(call: FollowCall) {
     this._call = call;
   }
 }
 
-export class SetDiscordCall extends ethereum.Call {
-  get inputs(): SetDiscordCall__Inputs {
-    return new SetDiscordCall__Inputs(this);
+export class SetBtcAddressCall extends ethereum.Call {
+  get inputs(): SetBtcAddressCall__Inputs {
+    return new SetBtcAddressCall__Inputs(this);
   }
 
-  get outputs(): SetDiscordCall__Outputs {
-    return new SetDiscordCall__Outputs(this);
+  get outputs(): SetBtcAddressCall__Outputs {
+    return new SetBtcAddressCall__Outputs(this);
   }
 }
 
-export class SetDiscordCall__Inputs {
-  _call: SetDiscordCall;
+export class SetBtcAddressCall__Inputs {
+  _call: SetBtcAddressCall;
 
-  constructor(call: SetDiscordCall) {
+  constructor(call: SetBtcAddressCall) {
     this._call = call;
   }
 
-  get _discord(): string {
-    return this._call.inputValues[0].value.toString();
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _btcAddress(): string {
+    return this._call.inputValues[1].value.toString();
   }
 }
 
-export class SetDiscordCall__Outputs {
-  _call: SetDiscordCall;
+export class SetBtcAddressCall__Outputs {
+  _call: SetBtcAddressCall;
 
-  constructor(call: SetDiscordCall) {
-    this._call = call;
-  }
-}
-
-export class SetEmailCall extends ethereum.Call {
-  get inputs(): SetEmailCall__Inputs {
-    return new SetEmailCall__Inputs(this);
-  }
-
-  get outputs(): SetEmailCall__Outputs {
-    return new SetEmailCall__Outputs(this);
-  }
-}
-
-export class SetEmailCall__Inputs {
-  _call: SetEmailCall;
-
-  constructor(call: SetEmailCall) {
-    this._call = call;
-  }
-
-  get email(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetEmailCall__Outputs {
-  _call: SetEmailCall;
-
-  constructor(call: SetEmailCall) {
+  constructor(call: SetBtcAddressCall) {
     this._call = call;
   }
 }
 
-export class SetEmailVerifiedDataCall extends ethereum.Call {
-  get inputs(): SetEmailVerifiedDataCall__Inputs {
-    return new SetEmailVerifiedDataCall__Inputs(this);
+export class SetReadKeyCall extends ethereum.Call {
+  get inputs(): SetReadKeyCall__Inputs {
+    return new SetReadKeyCall__Inputs(this);
   }
 
-  get outputs(): SetEmailVerifiedDataCall__Outputs {
-    return new SetEmailVerifiedDataCall__Outputs(this);
+  get outputs(): SetReadKeyCall__Outputs {
+    return new SetReadKeyCall__Outputs(this);
   }
 }
 
-export class SetEmailVerifiedDataCall__Inputs {
-  _call: SetEmailVerifiedDataCall;
+export class SetReadKeyCall__Inputs {
+  _call: SetReadKeyCall;
 
-  constructor(call: SetEmailVerifiedDataCall) {
+  constructor(call: SetReadKeyCall) {
     this._call = call;
   }
 
-  get data(): string {
-    return this._call.inputValues[0].value.toString();
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get readKey(): string {
+    return this._call.inputValues[1].value.toString();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
   }
 }
 
-export class SetEmailVerifiedDataCall__Outputs {
-  _call: SetEmailVerifiedDataCall;
+export class SetReadKeyCall__Outputs {
+  _call: SetReadKeyCall;
 
-  constructor(call: SetEmailVerifiedDataCall) {
-    this._call = call;
-  }
-}
-
-export class SetFingerScanCall extends ethereum.Call {
-  get inputs(): SetFingerScanCall__Inputs {
-    return new SetFingerScanCall__Inputs(this);
-  }
-
-  get outputs(): SetFingerScanCall__Outputs {
-    return new SetFingerScanCall__Outputs(this);
-  }
-}
-
-export class SetFingerScanCall__Inputs {
-  _call: SetFingerScanCall;
-
-  constructor(call: SetFingerScanCall) {
-    this._call = call;
-  }
-
-  get fingerScan(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetFingerScanCall__Outputs {
-  _call: SetFingerScanCall;
-
-  constructor(call: SetFingerScanCall) {
+  constructor(call: SetReadKeyCall) {
     this._call = call;
   }
 }
 
-export class SetFirstNameCall extends ethereum.Call {
-  get inputs(): SetFirstNameCall__Inputs {
-    return new SetFirstNameCall__Inputs(this);
+export class SetStatusCall extends ethereum.Call {
+  get inputs(): SetStatusCall__Inputs {
+    return new SetStatusCall__Inputs(this);
   }
 
-  get outputs(): SetFirstNameCall__Outputs {
-    return new SetFirstNameCall__Outputs(this);
+  get outputs(): SetStatusCall__Outputs {
+    return new SetStatusCall__Outputs(this);
   }
 }
 
-export class SetFirstNameCall__Inputs {
-  _call: SetFirstNameCall;
+export class SetStatusCall__Inputs {
+  _call: SetStatusCall;
 
-  constructor(call: SetFirstNameCall) {
+  constructor(call: SetStatusCall) {
     this._call = call;
   }
 
-  get firstName(): string {
-    return this._call.inputValues[0].value.toString();
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get status(): boolean {
+    return this._call.inputValues[1].value.toBoolean();
+  }
+
+  get userChoice(): boolean {
+    return this._call.inputValues[2].value.toBoolean();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
   }
 }
 
-export class SetFirstNameCall__Outputs {
-  _call: SetFirstNameCall;
+export class SetStatusCall__Outputs {
+  _call: SetStatusCall;
 
-  constructor(call: SetFirstNameCall) {
-    this._call = call;
-  }
-}
-
-export class SetGovtIDCall extends ethereum.Call {
-  get inputs(): SetGovtIDCall__Inputs {
-    return new SetGovtIDCall__Inputs(this);
-  }
-
-  get outputs(): SetGovtIDCall__Outputs {
-    return new SetGovtIDCall__Outputs(this);
-  }
-}
-
-export class SetGovtIDCall__Inputs {
-  _call: SetGovtIDCall;
-
-  constructor(call: SetGovtIDCall) {
-    this._call = call;
-  }
-
-  get govtID(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetGovtIDCall__Outputs {
-  _call: SetGovtIDCall;
-
-  constructor(call: SetGovtIDCall) {
+  constructor(call: SetStatusCall) {
     this._call = call;
   }
 }
 
-export class SetInstagramCall extends ethereum.Call {
-  get inputs(): SetInstagramCall__Inputs {
-    return new SetInstagramCall__Inputs(this);
+export class SigninCall extends ethereum.Call {
+  get inputs(): SigninCall__Inputs {
+    return new SigninCall__Inputs(this);
   }
 
-  get outputs(): SetInstagramCall__Outputs {
-    return new SetInstagramCall__Outputs(this);
+  get outputs(): SigninCall__Outputs {
+    return new SigninCall__Outputs(this);
   }
 }
 
-export class SetInstagramCall__Inputs {
-  _call: SetInstagramCall;
+export class SigninCall__Inputs {
+  _call: SigninCall;
 
-  constructor(call: SetInstagramCall) {
+  constructor(call: SigninCall) {
     this._call = call;
   }
 
-  get _instagram(): string {
-    return this._call.inputValues[0].value.toString();
+  get user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get proofOfSignature(): Bytes {
+    return this._call.inputValues[1].value.toBytes();
   }
 }
 
-export class SetInstagramCall__Outputs {
-  _call: SetInstagramCall;
+export class SigninCall__Outputs {
+  _call: SigninCall;
 
-  constructor(call: SetInstagramCall) {
-    this._call = call;
-  }
-}
-
-export class SetLastNameCall extends ethereum.Call {
-  get inputs(): SetLastNameCall__Inputs {
-    return new SetLastNameCall__Inputs(this);
-  }
-
-  get outputs(): SetLastNameCall__Outputs {
-    return new SetLastNameCall__Outputs(this);
-  }
-}
-
-export class SetLastNameCall__Inputs {
-  _call: SetLastNameCall;
-
-  constructor(call: SetLastNameCall) {
-    this._call = call;
-  }
-
-  get lastName(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetLastNameCall__Outputs {
-  _call: SetLastNameCall;
-
-  constructor(call: SetLastNameCall) {
-    this._call = call;
-  }
-}
-
-export class SetMiddleNameCall extends ethereum.Call {
-  get inputs(): SetMiddleNameCall__Inputs {
-    return new SetMiddleNameCall__Inputs(this);
-  }
-
-  get outputs(): SetMiddleNameCall__Outputs {
-    return new SetMiddleNameCall__Outputs(this);
-  }
-}
-
-export class SetMiddleNameCall__Inputs {
-  _call: SetMiddleNameCall;
-
-  constructor(call: SetMiddleNameCall) {
-    this._call = call;
-  }
-
-  get _middleName(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetMiddleNameCall__Outputs {
-  _call: SetMiddleNameCall;
-
-  constructor(call: SetMiddleNameCall) {
-    this._call = call;
-  }
-}
-
-export class SetPictureNFTCall extends ethereum.Call {
-  get inputs(): SetPictureNFTCall__Inputs {
-    return new SetPictureNFTCall__Inputs(this);
-  }
-
-  get outputs(): SetPictureNFTCall__Outputs {
-    return new SetPictureNFTCall__Outputs(this);
-  }
-}
-
-export class SetPictureNFTCall__Inputs {
-  _call: SetPictureNFTCall;
-
-  constructor(call: SetPictureNFTCall) {
-    this._call = call;
-  }
-
-  get nft(): SetPictureNFTCallNftStruct {
-    return changetype<SetPictureNFTCallNftStruct>(
-      this._call.inputValues[0].value.toTuple()
-    );
-  }
-}
-
-export class SetPictureNFTCall__Outputs {
-  _call: SetPictureNFTCall;
-
-  constructor(call: SetPictureNFTCall) {
-    this._call = call;
-  }
-}
-
-export class SetPictureNFTCallNftStruct extends ethereum.Tuple {
-  get nftAddress(): Address {
-    return this[0].toAddress();
-  }
-
-  get ownedID(): BigInt {
-    return this[1].toBigInt();
-  }
-}
-
-export class SetPictureUploadCall extends ethereum.Call {
-  get inputs(): SetPictureUploadCall__Inputs {
-    return new SetPictureUploadCall__Inputs(this);
-  }
-
-  get outputs(): SetPictureUploadCall__Outputs {
-    return new SetPictureUploadCall__Outputs(this);
-  }
-}
-
-export class SetPictureUploadCall__Inputs {
-  _call: SetPictureUploadCall;
-
-  constructor(call: SetPictureUploadCall) {
-    this._call = call;
-  }
-
-  get url(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetPictureUploadCall__Outputs {
-  _call: SetPictureUploadCall;
-
-  constructor(call: SetPictureUploadCall) {
-    this._call = call;
-  }
-}
-
-export class SetTagsCall extends ethereum.Call {
-  get inputs(): SetTagsCall__Inputs {
-    return new SetTagsCall__Inputs(this);
-  }
-
-  get outputs(): SetTagsCall__Outputs {
-    return new SetTagsCall__Outputs(this);
-  }
-}
-
-export class SetTagsCall__Inputs {
-  _call: SetTagsCall;
-
-  constructor(call: SetTagsCall) {
-    this._call = call;
-  }
-
-  get tags(): Array<string> {
-    return this._call.inputValues[0].value.toStringArray();
-  }
-}
-
-export class SetTagsCall__Outputs {
-  _call: SetTagsCall;
-
-  constructor(call: SetTagsCall) {
-    this._call = call;
-  }
-}
-
-export class SetTelephoneCall extends ethereum.Call {
-  get inputs(): SetTelephoneCall__Inputs {
-    return new SetTelephoneCall__Inputs(this);
-  }
-
-  get outputs(): SetTelephoneCall__Outputs {
-    return new SetTelephoneCall__Outputs(this);
-  }
-}
-
-export class SetTelephoneCall__Inputs {
-  _call: SetTelephoneCall;
-
-  constructor(call: SetTelephoneCall) {
-    this._call = call;
-  }
-
-  get telephone(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetTelephoneCall__Outputs {
-  _call: SetTelephoneCall;
-
-  constructor(call: SetTelephoneCall) {
-    this._call = call;
-  }
-}
-
-export class SetTelephoneVerifiedDataCall extends ethereum.Call {
-  get inputs(): SetTelephoneVerifiedDataCall__Inputs {
-    return new SetTelephoneVerifiedDataCall__Inputs(this);
-  }
-
-  get outputs(): SetTelephoneVerifiedDataCall__Outputs {
-    return new SetTelephoneVerifiedDataCall__Outputs(this);
-  }
-}
-
-export class SetTelephoneVerifiedDataCall__Inputs {
-  _call: SetTelephoneVerifiedDataCall;
-
-  constructor(call: SetTelephoneVerifiedDataCall) {
-    this._call = call;
-  }
-
-  get data(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetTelephoneVerifiedDataCall__Outputs {
-  _call: SetTelephoneVerifiedDataCall;
-
-  constructor(call: SetTelephoneVerifiedDataCall) {
-    this._call = call;
-  }
-}
-
-export class SetTiktokCall extends ethereum.Call {
-  get inputs(): SetTiktokCall__Inputs {
-    return new SetTiktokCall__Inputs(this);
-  }
-
-  get outputs(): SetTiktokCall__Outputs {
-    return new SetTiktokCall__Outputs(this);
-  }
-}
-
-export class SetTiktokCall__Inputs {
-  _call: SetTiktokCall;
-
-  constructor(call: SetTiktokCall) {
-    this._call = call;
-  }
-
-  get _tiktok(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetTiktokCall__Outputs {
-  _call: SetTiktokCall;
-
-  constructor(call: SetTiktokCall) {
-    this._call = call;
-  }
-}
-
-export class SetTwitterCall extends ethereum.Call {
-  get inputs(): SetTwitterCall__Inputs {
-    return new SetTwitterCall__Inputs(this);
-  }
-
-  get outputs(): SetTwitterCall__Outputs {
-    return new SetTwitterCall__Outputs(this);
-  }
-}
-
-export class SetTwitterCall__Inputs {
-  _call: SetTwitterCall;
-
-  constructor(call: SetTwitterCall) {
-    this._call = call;
-  }
-
-  get _twitter(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetTwitterCall__Outputs {
-  _call: SetTwitterCall;
-
-  constructor(call: SetTwitterCall) {
-    this._call = call;
-  }
-}
-
-export class SetUserNameCall extends ethereum.Call {
-  get inputs(): SetUserNameCall__Inputs {
-    return new SetUserNameCall__Inputs(this);
-  }
-
-  get outputs(): SetUserNameCall__Outputs {
-    return new SetUserNameCall__Outputs(this);
-  }
-}
-
-export class SetUserNameCall__Inputs {
-  _call: SetUserNameCall;
-
-  constructor(call: SetUserNameCall) {
-    this._call = call;
-  }
-
-  get username(): string {
-    return this._call.inputValues[0].value.toString();
-  }
-}
-
-export class SetUserNameCall__Outputs {
-  _call: SetUserNameCall;
-
-  constructor(call: SetUserNameCall) {
+  constructor(call: SigninCall) {
     this._call = call;
   }
 }
@@ -1908,29 +1783,37 @@ export class SignupCall__Inputs {
     this._call = call;
   }
 
+  get proofOfSignature(): Bytes {
+    return this._call.inputValues[0].value.toBytes();
+  }
+
+  get userAddress(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
   get data(): Array<string> {
-    return this._call.inputValues[0].value.toStringArray();
+    return this._call.inputValues[2].value.toStringArray();
   }
 
   get dateOfBirth(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+    return this._call.inputValues[3].value.toBigInt();
   }
 
   get pronoun(): i32 {
-    return this._call.inputValues[2].value.toI32();
+    return this._call.inputValues[4].value.toI32();
   }
 
   get tags(): Array<string> {
-    return this._call.inputValues[3].value.toStringArray();
+    return this._call.inputValues[5].value.toStringArray();
   }
 
   get fields(): Array<i32> {
-    return this._call.inputValues[4].value.toI32Array();
+    return this._call.inputValues[6].value.toI32Array();
   }
 
   get ownedNFT(): SignupCallOwnedNFTStruct {
     return changetype<SignupCallOwnedNFTStruct>(
-      this._call.inputValues[5].value.toTuple()
+      this._call.inputValues[7].value.toTuple()
     );
   }
 }
@@ -1974,8 +1857,20 @@ export class UnFollowCall__Inputs {
     this._call = call;
   }
 
-  get followed(): BigInt {
+  get follower(): BigInt {
     return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get followed(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
   }
 }
 
@@ -1984,5 +1879,79 @@ export class UnFollowCall__Outputs {
 
   constructor(call: UnFollowCall) {
     this._call = call;
+  }
+}
+
+export class UpdateBatchCall extends ethereum.Call {
+  get inputs(): UpdateBatchCall__Inputs {
+    return new UpdateBatchCall__Inputs(this);
+  }
+
+  get outputs(): UpdateBatchCall__Outputs {
+    return new UpdateBatchCall__Outputs(this);
+  }
+}
+
+export class UpdateBatchCall__Inputs {
+  _call: UpdateBatchCall;
+
+  constructor(call: UpdateBatchCall) {
+    this._call = call;
+  }
+
+  get userAddress(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get data(): Array<string> {
+    return this._call.inputValues[1].value.toStringArray();
+  }
+
+  get dateOfBirth(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get pronoun(): i32 {
+    return this._call.inputValues[3].value.toI32();
+  }
+
+  get tags(): Array<string> {
+    return this._call.inputValues[4].value.toStringArray();
+  }
+
+  get fields(): Array<i32> {
+    return this._call.inputValues[5].value.toI32Array();
+  }
+
+  get ownedNFT(): UpdateBatchCallOwnedNFTStruct {
+    return changetype<UpdateBatchCallOwnedNFTStruct>(
+      this._call.inputValues[6].value.toTuple()
+    );
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[7].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[8].value.toBytes();
+  }
+}
+
+export class UpdateBatchCall__Outputs {
+  _call: UpdateBatchCall;
+
+  constructor(call: UpdateBatchCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateBatchCallOwnedNFTStruct extends ethereum.Tuple {
+  get nftAddress(): Address {
+    return this[0].toAddress();
+  }
+
+  get ownedID(): BigInt {
+    return this[1].toBigInt();
   }
 }

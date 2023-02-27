@@ -5,10 +5,236 @@
         "internalType": "address",
         "name": "_administration",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_group",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_postFac",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "comment",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct tagged_elements",
+        "name": "tags",
+        "type": "tuple"
+      }
+    ],
+    "name": "AddComment",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddCommentLike",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddPostLike",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct tagged_elements",
+        "name": "tags",
+        "type": "tuple"
+      }
+    ],
+    "name": "AddReply",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddReplyLike",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "voteID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "option",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddVote",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[]",
+        "name": "options",
+        "type": "string[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "singleOption",
+        "type": "bool"
+      }
+    ],
+    "name": "CreatePoll",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -30,6 +256,36 @@
         "internalType": "string",
         "name": "body",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "CIDAsset",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[]",
+        "name": "tags",
+        "type": "string[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct tagged_elements",
+        "name": "taggedElements",
+        "type": "tuple"
       },
       {
         "indexed": false,
@@ -45,6 +301,12 @@
       },
       {
         "indexed": false,
+        "internalType": "enum TYPE",
+        "name": "_type",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "postID",
         "type": "uint256"
@@ -54,22 +316,235 @@
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
         "internalType": "uint256",
         "name": "_executorID",
         "type": "uint256"
       },
       {
+        "indexed": false,
         "internalType": "uint256",
-        "name": "postID",
+        "name": "commentID",
         "type": "uint256"
       }
     ],
-    "name": "deletePost",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "DeleteComment",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      }
+    ],
+    "name": "DeleteReply",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "backgroundColor",
+        "type": "string"
+      }
+    ],
+    "name": "EditBackgroundColor",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum CAPTION_TYPE",
+        "name": "captionType",
+        "type": "uint8"
+      }
+    ],
+    "name": "EditCaptionType",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "newComment",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct tagged_elements",
+        "name": "tags",
+        "type": "tuple"
+      }
+    ],
+    "name": "EditComment",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "newText",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "indexed": false,
+        "internalType": "struct tagged_elements",
+        "name": "tags",
+        "type": "tuple"
+      }
+    ],
+    "name": "EditReply",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "authorChoice",
+        "type": "bool"
+      }
+    ],
+    "name": "HidePost",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "nftAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nftID",
+        "type": "uint256"
+      }
+    ],
+    "name": "MintedNFT",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      }
+    ],
+    "name": "RemoveCommentLike",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -87,72 +562,58 @@
         "type": "uint256"
       }
     ],
-    "name": "DeletePost",
+    "name": "RemovePostLike",
     "type": "event"
   },
   {
+    "anonymous": false,
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "_authorID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "title",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "body",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupID",
-        "type": "uint256"
-      }
-    ],
-    "name": "makePost",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "groupContractAddr",
-        "type": "address"
-      }
-    ],
-    "name": "setGroupContractAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "_executorID",
         "type": "uint256"
       },
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      }
+    ],
+    "name": "RemoveReplyLike",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint256",
         "name": "postID",
         "type": "uint256"
       },
       {
-        "internalType": "string",
-        "name": "body",
-        "type": "string"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "userID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "voteID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "option",
+        "type": "uint256"
       }
     ],
-    "name": "updateBody",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "name": "RemoveVote",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -197,19 +658,163 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "cid",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateCID",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "taggedGroups",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "UpdateTaggedGroups",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "taggedPeople",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "UpdateTaggedPeople",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[]",
+        "name": "tags",
+        "type": "string[]"
+      }
+    ],
+    "name": "UpdateTags",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "title",
         "type": "string"
       }
     ],
-    "name": "UpdatePost",
+    "name": "UpdateTitle",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum TYPE",
+        "name": "postType",
+        "type": "uint8"
+      }
+    ],
+    "name": "UpdateType",
     "type": "event"
   },
   {
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_executorID",
+        "name": "",
         "type": "uint256"
+      }
+    ],
+    "name": "NftForPost",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
       },
       {
         "internalType": "uint256",
@@ -218,11 +823,233 @@
       },
       {
         "internalType": "string",
-        "name": "title",
+        "name": "_comment",
         "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct tagged_elements",
+        "name": "_tags",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
       }
     ],
-    "name": "updateTitle",
+    "name": "addComment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addCommentLike",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addPostLike",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "text",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct tagged_elements",
+        "name": "_tags",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addReply",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addReplyLike",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "option",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addVote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "adminHidePost",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -235,6 +1062,280 @@
         "internalType": "contract Administration",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "authorHidePost",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "commentHideStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "hiddenByAuthor",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "hiddenByAdmin",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "correctVoteID",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "deleteComment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "deleteReply",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "newComment",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct tagged_elements",
+        "name": "_tags",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "editComment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "newText",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct tagged_elements",
+        "name": "_tags",
+        "type": "tuple"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "editReply",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "group",
+    "outputs": [
+      {
+        "internalType": "contract Group",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "groupIsTaggedAtPost",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -262,68 +1363,11 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "postByID",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "authorID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "title",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "body",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "tags",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "groupID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "createdTimestamp",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "updatedTimestamp",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "postID",
-        "type": "uint256"
-      }
-    ],
-    "name": "readPost",
-    "outputs": [
-      {
         "components": [
           {
-            "internalType": "uint256",
-            "name": "authorID",
-            "type": "uint256"
+            "internalType": "address",
+            "name": "author",
+            "type": "address"
           },
           {
             "internalType": "string",
@@ -337,8 +1381,40 @@
           },
           {
             "internalType": "string",
-            "name": "tags",
+            "name": "CIDAsset",
             "type": "string"
+          },
+          {
+            "internalType": "enum TYPE",
+            "name": "_type",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string[]",
+            "name": "tags",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string",
+            "name": "backgroundColor",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256[]",
+                "name": "people",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "groups",
+                "type": "uint256[]"
+              }
+            ],
+            "internalType": "struct tagged_elements",
+            "name": "taggedElements",
+            "type": "tuple"
           },
           {
             "internalType": "uint256",
@@ -354,11 +1430,534 @@
             "internalType": "uint256",
             "name": "updatedTimestamp",
             "type": "uint256"
+          },
+          {
+            "internalType": "enum CAPTION_TYPE",
+            "name": "captionType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string[]",
+            "name": "pollOptions",
+            "type": "string[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "singleOption",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isNFT",
+            "type": "bool"
           }
         ],
         "internalType": "struct Posts.POST",
-        "name": "",
+        "name": "post",
         "type": "tuple"
+      },
+      {
+        "internalType": "string",
+        "name": "_uri",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "makePost",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "postByID",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "author",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "body",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "CIDAsset",
+        "type": "string"
+      },
+      {
+        "internalType": "enum TYPE",
+        "name": "_type",
+        "type": "uint8"
+      },
+      {
+        "internalType": "string",
+        "name": "backgroundColor",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256[]",
+            "name": "people",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "groups",
+            "type": "uint256[]"
+          }
+        ],
+        "internalType": "struct tagged_elements",
+        "name": "taggedElements",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint256",
+        "name": "groupID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "createdTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "updatedTimestamp",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum CAPTION_TYPE",
+        "name": "captionType",
+        "type": "uint8"
+      },
+      {
+        "internalType": "bool",
+        "name": "singleOption",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNFT",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "postFactory",
+    "outputs": [
+      {
+        "internalType": "contract PostFactory",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "postHideStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "hiddenByAuthor",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "hiddenByAdmin",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "postIsNFT",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "profileNFT",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "removeCommentLike",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "removePostLike",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "removeReplyLike",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "option",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "voteID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "removeVote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "replyHideStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "hiddenByAuthor",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "hiddenByAdmin",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "uri",
+        "type": "string"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "author",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "body",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "CIDAsset",
+            "type": "string"
+          },
+          {
+            "internalType": "enum TYPE",
+            "name": "_type",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string[]",
+            "name": "tags",
+            "type": "string[]"
+          },
+          {
+            "internalType": "string",
+            "name": "backgroundColor",
+            "type": "string"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint256[]",
+                "name": "people",
+                "type": "uint256[]"
+              },
+              {
+                "internalType": "uint256[]",
+                "name": "groups",
+                "type": "uint256[]"
+              }
+            ],
+            "internalType": "struct tagged_elements",
+            "name": "taggedElements",
+            "type": "tuple"
+          },
+          {
+            "internalType": "uint256",
+            "name": "groupID",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "createdTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "updatedTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum CAPTION_TYPE",
+            "name": "captionType",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string[]",
+            "name": "pollOptions",
+            "type": "string[]"
+          },
+          {
+            "internalType": "bool",
+            "name": "singleOption",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isNFT",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Posts.POST",
+        "name": "post",
+        "type": "tuple"
+      },
+      {
+        "internalType": "enum Posts.Field[]",
+        "name": "updatedFields",
+        "type": "uint8[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "numberOfUpdatedFields",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "updatePost",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "user",
+    "outputs": [
+      {
+        "internalType": "contract User",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "userIsTaggedAtPost",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",

@@ -1,13 +1,16 @@
 {
-  "aurora-testnet": {
+  "goerli": {
     "users": {
-      "address": "0x7757D2D0bE676c15291e726AddCf64753b1CDb6C"
+      "address": "0xD581bccbD8d8eC6cf077aeB3389b6576F5DE8E5D"
     },
     "posts": {
-      "address": "0xF82B30721ECE3C38326D6EfA0139EcB06B0deed0"
+      "address": "0x7E4e44aB79dAB05532Fc58BD4D4ff6Be7Eb4B8ad"
     },
     "groups": {
-      "address": "0x4283d4BB3Ea930eFf366f1127E4932c4338fcAED"
+      "address": "0x5e2cc7cc27C7b79e9ACdAcDB307aF31798440238"
+    },
+    "reports": {
+      "address": "0x5e2cc7cc27C7b79e9ACdAcDB307aF31798440238"
     }
   }
 }
