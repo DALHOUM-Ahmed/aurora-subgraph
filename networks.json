@@ -1,16 +1,16 @@
 {
-  "goerli": {
+  "cmpTestnet": {
     "users": {
-      "address": "0xD581bccbD8d8eC6cf077aeB3389b6576F5DE8E5D"
+      "address": "0x41B66678143FAce0E8b48A6b07E9F2Fdf45A497B"
     },
     "posts": {
-      "address": "0x7E4e44aB79dAB05532Fc58BD4D4ff6Be7Eb4B8ad"
+      "address": "0xaa618B9347794845d17a168dd02C9078906AC2Ff"
     },
     "groups": {
-      "address": "0x5e2cc7cc27C7b79e9ACdAcDB307aF31798440238"
+      "address": "0xC716391A331441Dc41a111520FD0d64Cb060fE45"
     },
     "reports": {
-      "address": "0x5e2cc7cc27C7b79e9ACdAcDB307aF31798440238"
+      "address": "0xF82B30721ECE3C38326D6EfA0139EcB06B0deed0"
     }
   }
 }
