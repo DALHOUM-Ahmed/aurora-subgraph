@@ -171,7 +171,7 @@ export function handleCreatePoll(event: CreatePollEvent): void {
 export function handleMintedNFT(event: MintedNFTEvent): void {
   let postEntity = Post.load(event.params.postID.toString());
   if (postEntity) {
-    let userEntity = User.load(postEntity.authorID);
+    let userEntity = User.load(postEntity.authorID.toString());
     if (postEntity && userEntity) {
       userEntity.profilePostsNFTaddress = event.params.nftAddress.toHexString();
       userEntity.numberOfMintedPosts++;

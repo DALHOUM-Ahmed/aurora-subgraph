@@ -186,10 +186,12 @@ export function handleSetStatus(event: SetStatusEvent): void {
   }
   entity.status = event.params.status;
 
-  for (let i = 0; i < entity.posts!.length; i++) {
-    let post = Post.load(entity.posts![i]);
-    post!.userStatus = event.params.status;
-    post!.save();
+  if (entity.posts!.length > 0) {
+    for (let i = 0; i < entity.posts!.length; i++) {
+      let post = Post.load(entity.posts![i]);
+      post!.userStatus = event.params.status;
+      post!.save();
+    }
   }
 
   entity.save();
@@ -350,6 +352,7 @@ export function handleSignupBasic(event: SignupBasicEvent): void {
   entity.followedGroupsCount = 0;
 
   entity.status = true;
+  entity.posts = [];
 
   entity.blockNumber = event.block.number;
   entity.blockTimestamp = event.block.timestamp;
@@ -394,7 +397,6 @@ export function handleSignupProfileInfo(event: SignupProfileInfoEvent): void {
 
   entity.followedUsers = [];
   entity.followers = [];
-  entity.posts = [];
   entity.followedGroups = [];
 
   entity.save();
