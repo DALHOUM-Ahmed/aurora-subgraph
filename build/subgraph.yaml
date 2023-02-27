@@ -7,7 +7,7 @@ features:
 dataSources:
   - kind: ethereum
     name: users
-    network: goerli
+    network: cmpTestnet
     source:
       address: "0x41B66678143FAce0E8b48A6b07E9F2Fdf45A497B"
       abi: users
@@ -108,9 +108,9 @@ dataSources:
       file: users/users.wasm
   - kind: ethereum
     name: posts
-    network: goerli
+    network: cmpTestnet
     source:
-      address: "0xaa618B9347794845d17a168dd02C9078906AC2Ff"
+      address: "0xb3313Eb93e882315EC50fE95df0D96A0a887cD1F"
       abi: posts
       startBlock: 12865585
     mapping:
@@ -200,7 +200,7 @@ dataSources:
       file: posts/posts.wasm
   - kind: ethereum
     name: groups
-    network: goerli
+    network: cmpTestnet
     source:
       address: "0xC716391A331441Dc41a111520FD0d64Cb060fE45"
       abi: groups
@@ -247,7 +247,7 @@ dataSources:
       file: groups/groups.wasm
   - kind: ethereum
     name: reports
-    network: goerli
+    network: cmpTestnet
     source:
       address: "0xF82B30721ECE3C38326D6EfA0139EcB06B0deed0"
       abi: reports
