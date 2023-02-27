@@ -7,7 +7,7 @@
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ dalhoum-ahmed/aurora-test-user-post-1",
     "create-local": "graph create --node http://localhost:8020/ deme/testnet-subgraph",
     "remove-local": "graph remove --node http://localhost:8020/ deme/testnet-subgraph",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs 127.0.0.1:5002 deme/testnet-subgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://127.0.0.1:5002 deme/testnet-subgraph",
     "test": "graph test"
   },
   "dependencies": {

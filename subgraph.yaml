@@ -102,7 +102,7 @@ dataSources:
         - event: SetPronoun(uint256,uint8)
           handler: handleSetPronoun
         - event: SetStatus(uint256,bool)
-          handler: handleSetSetStatus
+          handler: handleSetStatus
         - event: SetReadKey(uint256,string)
           handler: handleSetReadKey
       file: ./src/users.ts
