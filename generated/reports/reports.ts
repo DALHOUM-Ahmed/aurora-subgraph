@@ -30,6 +30,10 @@ export class ReportComment__Params {
   get report(): boolean {
     return this._event.parameters[1].value.toBoolean();
   }
+
+  get reason(): string {
+    return this._event.parameters[2].value.toString();
+  }
 }
 
 export class ReportPost extends ethereum.Event {
@@ -52,6 +56,10 @@ export class ReportPost__Params {
   get report(): boolean {
     return this._event.parameters[1].value.toBoolean();
   }
+
+  get reason(): string {
+    return this._event.parameters[2].value.toString();
+  }
 }
 
 export class ReportReply extends ethereum.Event {
@@ -73,6 +81,10 @@ export class ReportReply__Params {
 
   get report(): boolean {
     return this._event.parameters[1].value.toBoolean();
+  }
+
+  get reason(): string {
+    return this._event.parameters[2].value.toString();
   }
 }
 
@@ -206,36 +218,6 @@ export class reports extends ethereum.SmartContract {
   }
 }
 
-export class ConstructorCall extends ethereum.Call {
-  get inputs(): ConstructorCall__Inputs {
-    return new ConstructorCall__Inputs(this);
-  }
-
-  get outputs(): ConstructorCall__Outputs {
-    return new ConstructorCall__Outputs(this);
-  }
-}
-
-export class ConstructorCall__Inputs {
-  _call: ConstructorCall;
-
-  constructor(call: ConstructorCall) {
-    this._call = call;
-  }
-
-  get _administration(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-}
-
-export class ConstructorCall__Outputs {
-  _call: ConstructorCall;
-
-  constructor(call: ConstructorCall) {
-    this._call = call;
-  }
-}
-
 export class ReportCommentCall extends ethereum.Call {
   get inputs(): ReportCommentCall__Inputs {
     return new ReportCommentCall__Inputs(this);
@@ -264,12 +246,46 @@ export class ReportCommentCall__Inputs {
   get report(): boolean {
     return this._call.inputValues[2].value.toBoolean();
   }
+
+  get reason(): string {
+    return this._call.inputValues[3].value.toString();
+  }
 }
 
 export class ReportCommentCall__Outputs {
   _call: ReportCommentCall;
 
   constructor(call: ReportCommentCall) {
+    this._call = call;
+  }
+}
+
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+
+  get _administration(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
     this._call = call;
   }
 }
@@ -301,6 +317,10 @@ export class ReportPostCall__Inputs {
 
   get report(): boolean {
     return this._call.inputValues[2].value.toBoolean();
+  }
+
+  get reason(): string {
+    return this._call.inputValues[3].value.toString();
   }
 }
 
@@ -339,6 +359,10 @@ export class ReportReplyCall__Inputs {
 
   get report(): boolean {
     return this._call.inputValues[2].value.toBoolean();
+  }
+
+  get reason(): string {
+    return this._call.inputValues[3].value.toString();
   }
 }
 

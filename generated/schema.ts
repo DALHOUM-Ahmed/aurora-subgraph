@@ -398,6 +398,23 @@ export class Post extends Entity {
   set numberOfReports(value: i32) {
     this.set("numberOfReports", Value.fromI32(value));
   }
+
+  get reportReasons(): Array<string> | null {
+    let value = this.get("reportReasons");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set reportReasons(value: Array<string> | null) {
+    if (!value) {
+      this.unset("reportReasons");
+    } else {
+      this.set("reportReasons", Value.fromStringArray(<Array<string>>value));
+    }
+  }
 }
 
 export class Poll extends Entity {
@@ -1712,6 +1729,23 @@ export class Comment extends Entity {
   set numberOfReports(value: i32) {
     this.set("numberOfReports", Value.fromI32(value));
   }
+
+  get reportReasons(): Array<string> | null {
+    let value = this.get("reportReasons");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set reportReasons(value: Array<string> | null) {
+    if (!value) {
+      this.unset("reportReasons");
+    } else {
+      this.set("reportReasons", Value.fromStringArray(<Array<string>>value));
+    }
+  }
 }
 
 export class Reply extends Entity {
@@ -1882,5 +1916,22 @@ export class Reply extends Entity {
 
   set numberOfReports(value: i32) {
     this.set("numberOfReports", Value.fromI32(value));
+  }
+
+  get reportReasons(): Array<string> | null {
+    let value = this.get("reportReasons");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set reportReasons(value: Array<string> | null) {
+    if (!value) {
+      this.unset("reportReasons");
+    } else {
+      this.set("reportReasons", Value.fromStringArray(<Array<string>>value));
+    }
   }
 }

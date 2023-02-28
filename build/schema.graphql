@@ -29,6 +29,7 @@ type Post @entity {
   group: Group!
   userStatus: Boolean
   numberOfReports: Int
+  reportReasons: [String!]
 }
 #add isGroup bool to avoid fail on unknown
 
@@ -134,6 +135,7 @@ type Comment @entity {
   firstCreatedReplyID: BigInt
   lastCreatedReplyID: BigInt
   numberOfReports: Int
+  reportReasons: [String!]
 }
 
 type Reply @entity {
@@ -149,4 +151,5 @@ type Reply @entity {
   taggedPeople: [User!]
   taggedGroups: [Group!]
   numberOfReports: Int
+  reportReasons: [String!]
 }

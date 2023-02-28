@@ -18,8 +18,12 @@ import { log } from "@graphprotocol/graph-ts";
 export function handleReportPost(event: ReportPostEvent): void {
   let entity = Post.load(event.params.id.toString());
   if (entity) {
-    if (event.params.report) entity.numberOfReports++;
-    else entity.numberOfReports--;
+    if (event.params.report) {
+      entity.numberOfReports++;
+      entity.reportReasons = entity.reportReasons!.concat([
+        event.params.reason
+      ]);
+    } else entity.numberOfReports--;
     entity.save();
   }
 }
@@ -27,8 +31,12 @@ export function handleReportPost(event: ReportPostEvent): void {
 export function handleReportComment(event: ReportCommentEvent): void {
   let entity = Comment.load(event.params.id.toString());
   if (entity) {
-    if (event.params.report) entity.numberOfReports++;
-    else entity.numberOfReports--;
+    if (event.params.report) {
+      entity.numberOfReports++;
+      entity.reportReasons = entity.reportReasons!.concat([
+        event.params.reason
+      ]);
+    } else entity.numberOfReports--;
     entity.save();
   }
 }
@@ -36,8 +44,12 @@ export function handleReportComment(event: ReportCommentEvent): void {
 export function handleReportReply(event: ReportReplyEvent): void {
   let entity = Reply.load(event.params.id.toString());
   if (entity) {
-    if (event.params.report) entity.numberOfReports++;
-    else entity.numberOfReports--;
+    if (event.params.report) {
+      entity.numberOfReports++;
+      entity.reportReasons = entity.reportReasons!.concat([
+        event.params.reason
+      ]);
+    } else entity.numberOfReports--;
     entity.save();
   }
 }

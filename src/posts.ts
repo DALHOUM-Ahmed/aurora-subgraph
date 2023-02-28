@@ -63,6 +63,7 @@ export function handleCreatePost(event: CreatePostEvent): void {
     entity.likes = 0;
     entity.likers = [];
     entity.comments = [];
+    entity.reportReasons = [];
     entity.integerID = event.params.postID;
     entity.numberOfReports = 0;
     entity.userStatus = true;
@@ -362,6 +363,7 @@ export function handleAddComment(event: AddCommentEvent): void {
   entity.numberOfReports = 0;
   // entity.taggedGroups = event.params.tags.groups.map(e => e.toString());
   entity.taggedGroups = [];
+  entity.reportReasons = [];
   for (let i = 0; i < event.params.tags.groups.length; i++) {
     entity.taggedGroups = entity.taggedGroups!.concat([
       event.params.tags.groups[i].toString()
@@ -405,6 +407,7 @@ export function handleAddReply(event: AddReplyEvent): void {
   entity.numberOfReports = 0;
   // entity.taggedPeople = event.params.tags.people.map(e => e.toString());
   entity.taggedPeople = [];
+  entity.reportReasons = [];
   for (let i = 0; i < event.params.tags.groups.length; i++) {
     entity.taggedPeople = entity.taggedPeople!.concat([
       event.params.tags.people[i].toString()
