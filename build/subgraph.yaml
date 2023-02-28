@@ -249,7 +249,7 @@ dataSources:
     name: reports
     network: cmpTestnet
     source:
-      address: "0xF82B30721ECE3C38326D6EfA0139EcB06B0deed0"
+      address: "0xD5dB3d1E3351Cc6a67E426b0E696AC20574d03D4"
       abi: reports
       startBlock: 12865585
     mapping:
