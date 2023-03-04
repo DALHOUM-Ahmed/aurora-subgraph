@@ -9,7 +9,7 @@ dataSources:
     name: users
     network: cmpTestnet
     source:
-      address: "0x17a1220834Bf3f7acc381652F60fFC75731Cd7cc"
+      address: "0xF8B5876cDa91d8161090a1d7ae6A42B73657AF1f"
       abi: users
       startBlock: 12865585
     mapping:
@@ -110,7 +110,7 @@ dataSources:
     name: posts
     network: cmpTestnet
     source:
-      address: "0xB8EfeeAd4ecbe01600812197611c7cbb335dbd4d"
+      address: "0x5B5D4C90CdFc446274CfF655D529AA9338535576"
       abi: posts
       startBlock: 12865585
     mapping:
@@ -202,7 +202,7 @@ dataSources:
     name: groups
     network: cmpTestnet
     source:
-      address: "0xd31D905bd8f227f7f32fE965fEAcCAf119cf3e33"
+      address: "0x51DB41a157E5790C83ee3E2D8a04d5145f43D04b"
       abi: groups
       startBlock: 12865585
     mapping:
@@ -251,7 +251,7 @@ dataSources:
     name: reports
     network: cmpTestnet
     source:
-      address: "0xC8123d0bB0A1b6750D6719EFa99009C26a760473"
+      address: "0xF503b7229a1EebefCb0A702D8aA810e2d3569933"
       abi: reports
       startBlock: 12865585
     mapping:
