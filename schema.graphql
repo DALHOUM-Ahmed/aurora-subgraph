@@ -110,12 +110,15 @@ type Group @entity {
   name: String!
   author: User!
   about: String!
+  description: String!
   admins: [User!]
   posts: [Post!]
   bannedUsersCount: Int
   isPrivate: Boolean
   deleted: Boolean
   post: Post!
+  nftAddress: String
+  privateMembers: [User!]
 }
 
 type Comment @entity {

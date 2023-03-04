@@ -1429,6 +1429,15 @@ export class Group extends Entity {
     this.set("about", Value.fromString(value));
   }
 
+  get description(): string {
+    let value = this.get("description");
+    return value!.toString();
+  }
+
+  set description(value: string) {
+    this.set("description", Value.fromString(value));
+  }
+
   get admins(): Array<string> | null {
     let value = this.get("admins");
     if (!value || value.kind == ValueKind.NULL) {
@@ -1497,6 +1506,40 @@ export class Group extends Entity {
 
   set post(value: string) {
     this.set("post", Value.fromString(value));
+  }
+
+  get nftAddress(): string | null {
+    let value = this.get("nftAddress");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set nftAddress(value: string | null) {
+    if (!value) {
+      this.unset("nftAddress");
+    } else {
+      this.set("nftAddress", Value.fromString(<string>value));
+    }
+  }
+
+  get privateMembers(): Array<string> | null {
+    let value = this.get("privateMembers");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set privateMembers(value: Array<string> | null) {
+    if (!value) {
+      this.unset("privateMembers");
+    } else {
+      this.set("privateMembers", Value.fromStringArray(<Array<string>>value));
+    }
   }
 }
 

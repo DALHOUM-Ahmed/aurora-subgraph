@@ -9,7 +9,7 @@ dataSources:
     name: users
     network: cmpTestnet
     source:
-      address: "0x41B66678143FAce0E8b48A6b07E9F2Fdf45A497B"
+      address: "0x17a1220834Bf3f7acc381652F60fFC75731Cd7cc"
       abi: users
       startBlock: 12865585
     mapping:
@@ -110,7 +110,7 @@ dataSources:
     name: posts
     network: cmpTestnet
     source:
-      address: "0xb3313Eb93e882315EC50fE95df0D96A0a887cD1F"
+      address: "0xB8EfeeAd4ecbe01600812197611c7cbb335dbd4d"
       abi: posts
       startBlock: 12865585
     mapping:
@@ -202,7 +202,7 @@ dataSources:
     name: groups
     network: cmpTestnet
     source:
-      address: "0xC716391A331441Dc41a111520FD0d64Cb060fE45"
+      address: "0xd31D905bd8f227f7f32fE965fEAcCAf119cf3e33"
       abi: groups
       startBlock: 12865585
     mapping:
@@ -226,7 +226,7 @@ dataSources:
         - name: groups
           file: ./abis/groups.json
       eventHandlers:
-        - event: CreateGroup(uint256,uint256,string,string,bool)
+        - event: CreateGroup(uint256,uint256,string,string,string,bool)
           handler: handleCreateGroup
         - event: UpdateGroupName(uint256,string)
           handler: handleUpdateGroupName
@@ -242,14 +242,16 @@ dataSources:
           handler: handleFollow
         - event: UnFollow(uint256,uint256)
           handler: handleUnFollow
-        - event: CreatePostGroup(uint256,uint256,uint256,string,string,bool)
+        - event: CreatePostGroup(uint256,uint256,uint256,string,string,string,bool,address)
           handler: handleCreatePostGroup
+        - event: MintBatch(uint256[],uint256,uint256[])
+          handler: handleMintBatch
       file: ./src/groups.ts
   - kind: ethereum
     name: reports
     network: cmpTestnet
     source:
-      address: "0xD5dB3d1E3351Cc6a67E426b0E696AC20574d03D4"
+      address: "0xC8123d0bB0A1b6750D6719EFa99009C26a760473"
       abi: reports
       startBlock: 12865585
     mapping:

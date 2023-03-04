@@ -2,34 +2,6 @@
   {
     "inputs": [
       {
-        "internalType": "bytes32",
-        "name": "reporter",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "commentId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "report",
-        "type": "bool"
-      },
-      {
-        "internalType": "string",
-        "name": "reason",
-        "type": "string"
-      }
-    ],
-    "name": "reportComment",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "_administration",
         "type": "address"
@@ -64,34 +36,6 @@
     "type": "event"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "reporter",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "postId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "report",
-        "type": "bool"
-      },
-      {
-        "internalType": "string",
-        "name": "reason",
-        "type": "string"
-      }
-    ],
-    "name": "reportPost",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -115,34 +59,6 @@
     ],
     "name": "ReportPost",
     "type": "event"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "reporter",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "replyId",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "report",
-        "type": "bool"
-      },
-      {
-        "internalType": "string",
-        "name": "reason",
-        "type": "string"
-      }
-    ],
-    "name": "reportReply",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
   },
   {
     "anonymous": false,
@@ -265,6 +181,90 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "reporter",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "report",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "reportComment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "reporter",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "report",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "reportPost",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "reporter",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "replyId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "report",
+        "type": "bool"
+      },
+      {
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      }
+    ],
+    "name": "reportReply",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]

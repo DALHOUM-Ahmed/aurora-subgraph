@@ -1110,19 +1110,50 @@ export class posts extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBoolean());
   }
 
-  group(): Address {
-    let result = super.call("group", "group():(address)", []);
+  globalTransferActivated(): boolean {
+    let result = super.call(
+      "globalTransferActivated",
+      "globalTransferActivated():(bool)",
+      []
+    );
 
-    return result[0].toAddress();
+    return result[0].toBoolean();
   }
 
-  try_group(): ethereum.CallResult<Address> {
-    let result = super.tryCall("group", "group():(address)", []);
+  try_globalTransferActivated(): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "globalTransferActivated",
+      "globalTransferActivated():(bool)",
+      []
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  groupIDByPostID(param0: BigInt): BigInt {
+    let result = super.call(
+      "groupIDByPostID",
+      "groupIDByPostID(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_groupIDByPostID(param0: BigInt): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "groupIDByPostID",
+      "groupIDByPostID(uint256):(uint256)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   groupIsTaggedAtPost(param0: BigInt, param1: BigInt): boolean {
@@ -1174,6 +1205,21 @@ export class posts extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
+
+  name(): string {
+    let result = super.call("name", "name():(string)", []);
+
+    return result[0].toString();
+  }
+
+  try_name(): ethereum.CallResult<string> {
+    let result = super.tryCall("name", "name():(string)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
   }
 
   postByID(param0: BigInt): posts__postByIDResult {
@@ -1352,21 +1398,6 @@ export class posts extends ethereum.SmartContract {
     );
   }
 
-  user(): Address {
-    let result = super.call("user", "user():(address)", []);
-
-    return result[0].toAddress();
-  }
-
-  try_user(): ethereum.CallResult<Address> {
-    let result = super.tryCall("user", "user():(address)", []);
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toAddress());
-  }
-
   userIsTaggedAtPost(param0: BigInt, param1: BigInt): boolean {
     let result = super.call(
       "userIsTaggedAtPost",
@@ -1419,18 +1450,6 @@ export class ConstructorCall__Inputs {
 
   get _administration(): Address {
     return this._call.inputValues[0].value.toAddress();
-  }
-
-  get _group(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-
-  get _user(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
-  get _postFac(): Address {
-    return this._call.inputValues[3].value.toAddress();
   }
 }
 
@@ -2053,16 +2072,20 @@ export class MakePostCall__Inputs {
     );
   }
 
-  get _uri(): string {
-    return this._call.inputValues[1].value.toString();
+  get _urisAndDescription(): Array<string> {
+    return this._call.inputValues[1].value.toStringArray();
+  }
+
+  get groupSpecs(): Array<boolean> {
+    return this._call.inputValues[2].value.toBooleanArray();
   }
 
   get expiredSession(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
+    return this._call.inputValues[3].value.toBytes();
   }
 
   get newSession(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
+    return this._call.inputValues[4].value.toBytes();
   }
 }
 
@@ -2318,6 +2341,36 @@ export class RemoveVoteCall__Outputs {
   _call: RemoveVoteCall;
 
   constructor(call: RemoveVoteCall) {
+    this._call = call;
+  }
+}
+
+export class SetGlobalTransferActivatedCall extends ethereum.Call {
+  get inputs(): SetGlobalTransferActivatedCall__Inputs {
+    return new SetGlobalTransferActivatedCall__Inputs(this);
+  }
+
+  get outputs(): SetGlobalTransferActivatedCall__Outputs {
+    return new SetGlobalTransferActivatedCall__Outputs(this);
+  }
+}
+
+export class SetGlobalTransferActivatedCall__Inputs {
+  _call: SetGlobalTransferActivatedCall;
+
+  constructor(call: SetGlobalTransferActivatedCall) {
+    this._call = call;
+  }
+
+  get value(): boolean {
+    return this._call.inputValues[0].value.toBoolean();
+  }
+}
+
+export class SetGlobalTransferActivatedCall__Outputs {
+  _call: SetGlobalTransferActivatedCall;
+
+  constructor(call: SetGlobalTransferActivatedCall) {
     this._call = call;
   }
 }

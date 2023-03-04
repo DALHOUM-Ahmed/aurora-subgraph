@@ -39,8 +39,12 @@ export class CreateGroup__Params {
     return this._event.parameters[3].value.toString();
   }
 
+  get description(): string {
+    return this._event.parameters[4].value.toString();
+  }
+
   get isPrivateGroup(): boolean {
-    return this._event.parameters[4].value.toBoolean();
+    return this._event.parameters[5].value.toBoolean();
   }
 }
 
@@ -77,8 +81,16 @@ export class CreatePostGroup__Params {
     return this._event.parameters[4].value.toString();
   }
 
+  get description(): string {
+    return this._event.parameters[5].value.toString();
+  }
+
   get isPrivateGroup(): boolean {
-    return this._event.parameters[5].value.toBoolean();
+    return this._event.parameters[6].value.toBoolean();
+  }
+
+  get correspondingNftAddress(): Address {
+    return this._event.parameters[7].value.toAddress();
   }
 }
 
@@ -119,6 +131,32 @@ export class Follow__Params {
 
   get followedGroup(): BigInt {
     return this._event.parameters[1].value.toBigInt();
+  }
+}
+
+export class MintBatch extends ethereum.Event {
+  get params(): MintBatch__Params {
+    return new MintBatch__Params(this);
+  }
+}
+
+export class MintBatch__Params {
+  _event: MintBatch;
+
+  constructor(event: MintBatch) {
+    this._event = event;
+  }
+
+  get addedUsers(): Array<BigInt> {
+    return this._event.parameters[0].value.toBigIntArray();
+  }
+
+  get _groupID(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get mintedIDs(): Array<BigInt> {
+    return this._event.parameters[2].value.toBigIntArray();
   }
 }
 
@@ -239,19 +277,22 @@ export class UpdateGroupPrivacy__Params {
 export class groups__groupByIDResult {
   value0: string;
   value1: string;
-  value2: Address;
+  value2: string;
+  value3: Address;
 
-  constructor(value0: string, value1: string, value2: Address) {
+  constructor(value0: string, value1: string, value2: string, value3: Address) {
     this.value0 = value0;
     this.value1 = value1;
     this.value2 = value2;
+    this.value3 = value3;
   }
 
   toMap(): TypedMap<string, ethereum.Value> {
     let map = new TypedMap<string, ethereum.Value>();
     map.set("value0", ethereum.Value.fromString(this.value0));
     map.set("value1", ethereum.Value.fromString(this.value1));
-    map.set("value2", ethereum.Value.fromAddress(this.value2));
+    map.set("value2", ethereum.Value.fromString(this.value2));
+    map.set("value3", ethereum.Value.fromAddress(this.value3));
     return map;
   }
 
@@ -263,14 +304,66 @@ export class groups__groupByIDResult {
     return this.value1;
   }
 
-  getAuthor(): Address {
+  getDescription(): string {
     return this.value2;
+  }
+
+  getAuthor(): Address {
+    return this.value3;
+  }
+}
+
+export class groups__postContractCreateGroupResult {
+  value0: BigInt;
+  value1: Address;
+
+  constructor(value0: BigInt, value1: Address) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromAddress(this.value1));
+    return map;
+  }
+
+  get_groupID(): BigInt {
+    return this.value0;
+  }
+
+  getGroupAddress(): Address {
+    return this.value1;
   }
 }
 
 export class groups extends ethereum.SmartContract {
   static bind(address: Address): groups {
     return new groups("groups", address);
+  }
+
+  NftAddressByID(param0: BigInt): Address {
+    let result = super.call(
+      "NftAddressByID",
+      "NftAddressByID(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_NftAddressByID(param0: BigInt): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "NftAddressByID",
+      "NftAddressByID(uint256):(address)",
+      [ethereum.Value.fromUnsignedBigInt(param0)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   administration(): Address {
@@ -342,17 +435,19 @@ export class groups extends ethereum.SmartContract {
     _user: Address,
     _name: string,
     _about: string,
+    _description: string,
     _private: boolean,
     expiredSession: Bytes,
     newSession: Bytes
   ): BigInt {
     let result = super.call(
       "createGroup",
-      "createGroup(address,string,string,bool,bytes32,bytes32):(uint256)",
+      "createGroup(address,string,string,string,bool,bytes32,bytes32):(uint256)",
       [
         ethereum.Value.fromAddress(_user),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_about),
+        ethereum.Value.fromString(_description),
         ethereum.Value.fromBoolean(_private),
         ethereum.Value.fromFixedBytes(expiredSession),
         ethereum.Value.fromFixedBytes(newSession)
@@ -366,17 +461,19 @@ export class groups extends ethereum.SmartContract {
     _user: Address,
     _name: string,
     _about: string,
+    _description: string,
     _private: boolean,
     expiredSession: Bytes,
     newSession: Bytes
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "createGroup",
-      "createGroup(address,string,string,bool,bytes32,bytes32):(uint256)",
+      "createGroup(address,string,string,string,bool,bytes32,bytes32):(uint256)",
       [
         ethereum.Value.fromAddress(_user),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_about),
+        ethereum.Value.fromString(_description),
         ethereum.Value.fromBoolean(_private),
         ethereum.Value.fromFixedBytes(expiredSession),
         ethereum.Value.fromFixedBytes(newSession)
@@ -392,21 +489,22 @@ export class groups extends ethereum.SmartContract {
   groupByID(param0: BigInt): groups__groupByIDResult {
     let result = super.call(
       "groupByID",
-      "groupByID(uint256):(string,string,address)",
+      "groupByID(uint256):(string,string,string,address)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
 
     return new groups__groupByIDResult(
       result[0].toString(),
       result[1].toString(),
-      result[2].toAddress()
+      result[2].toString(),
+      result[3].toAddress()
     );
   }
 
   try_groupByID(param0: BigInt): ethereum.CallResult<groups__groupByIDResult> {
     let result = super.tryCall(
       "groupByID",
-      "groupByID(uint256):(string,string,address)",
+      "groupByID(uint256):(string,string,string,address)",
       [ethereum.Value.fromUnsignedBigInt(param0)]
     );
     if (result.reverted) {
@@ -417,7 +515,8 @@ export class groups extends ethereum.SmartContract {
       new groups__groupByIDResult(
         value[0].toString(),
         value[1].toString(),
-        value[2].toAddress()
+        value[2].toString(),
+        value[3].toAddress()
       )
     );
   }
@@ -443,6 +542,25 @@ export class groups extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  groupURI(param0: BigInt): string {
+    let result = super.call("groupURI", "groupURI(uint256):(string)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+
+    return result[0].toString();
+  }
+
+  try_groupURI(param0: BigInt): ethereum.CallResult<string> {
+    let result = super.tryCall("groupURI", "groupURI(uint256):(string)", [
+      ethereum.Value.fromUnsignedBigInt(param0)
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
   }
 
   isBannedFromGroup(param0: BigInt, param1: Address): boolean {
@@ -612,21 +730,28 @@ export class groups extends ethereum.SmartContract {
     postId: BigInt,
     _name: string,
     _about: string,
-    _private: boolean
-  ): BigInt {
+    _private: boolean,
+    uri: string,
+    description: string
+  ): groups__postContractCreateGroupResult {
     let result = super.call(
       "postContractCreateGroup",
-      "postContractCreateGroup(address,uint256,string,string,bool):(uint256)",
+      "postContractCreateGroup(address,uint256,string,string,bool,string,string):(uint256,address)",
       [
         ethereum.Value.fromAddress(_user),
         ethereum.Value.fromUnsignedBigInt(postId),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_about),
-        ethereum.Value.fromBoolean(_private)
+        ethereum.Value.fromBoolean(_private),
+        ethereum.Value.fromString(uri),
+        ethereum.Value.fromString(description)
       ]
     );
 
-    return result[0].toBigInt();
+    return new groups__postContractCreateGroupResult(
+      result[0].toBigInt(),
+      result[1].toAddress()
+    );
   }
 
   try_postContractCreateGroup(
@@ -634,24 +759,33 @@ export class groups extends ethereum.SmartContract {
     postId: BigInt,
     _name: string,
     _about: string,
-    _private: boolean
-  ): ethereum.CallResult<BigInt> {
+    _private: boolean,
+    uri: string,
+    description: string
+  ): ethereum.CallResult<groups__postContractCreateGroupResult> {
     let result = super.tryCall(
       "postContractCreateGroup",
-      "postContractCreateGroup(address,uint256,string,string,bool):(uint256)",
+      "postContractCreateGroup(address,uint256,string,string,bool,string,string):(uint256,address)",
       [
         ethereum.Value.fromAddress(_user),
         ethereum.Value.fromUnsignedBigInt(postId),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_about),
-        ethereum.Value.fromBoolean(_private)
+        ethereum.Value.fromBoolean(_private),
+        ethereum.Value.fromString(uri),
+        ethereum.Value.fromString(description)
       ]
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(value[0].toBigInt());
+    return ethereum.CallResult.fromValue(
+      new groups__postContractCreateGroupResult(
+        value[0].toBigInt(),
+        value[1].toAddress()
+      )
+    );
   }
 
   postGroupByPost(param0: BigInt): BigInt {
@@ -756,16 +890,20 @@ export class CreateGroupCall__Inputs {
     return this._call.inputValues[2].value.toString();
   }
 
+  get _description(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
   get _private(): boolean {
-    return this._call.inputValues[3].value.toBoolean();
+    return this._call.inputValues[4].value.toBoolean();
   }
 
   get expiredSession(): Bytes {
-    return this._call.inputValues[4].value.toBytes();
+    return this._call.inputValues[5].value.toBytes();
   }
 
   get newSession(): Bytes {
-    return this._call.inputValues[5].value.toBytes();
+    return this._call.inputValues[6].value.toBytes();
   }
 }
 
@@ -865,6 +1003,52 @@ export class FollowCall__Outputs {
   }
 }
 
+export class MintBatchCall extends ethereum.Call {
+  get inputs(): MintBatchCall__Inputs {
+    return new MintBatchCall__Inputs(this);
+  }
+
+  get outputs(): MintBatchCall__Outputs {
+    return new MintBatchCall__Outputs(this);
+  }
+}
+
+export class MintBatchCall__Inputs {
+  _call: MintBatchCall;
+
+  constructor(call: MintBatchCall) {
+    this._call = call;
+  }
+
+  get _user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get addedUsers(): Array<BigInt> {
+    return this._call.inputValues[1].value.toBigIntArray();
+  }
+
+  get _groupID(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+}
+
+export class MintBatchCall__Outputs {
+  _call: MintBatchCall;
+
+  constructor(call: MintBatchCall) {
+    this._call = call;
+  }
+}
+
 export class PostContractCreateGroupCall extends ethereum.Call {
   get inputs(): PostContractCreateGroupCall__Inputs {
     return new PostContractCreateGroupCall__Inputs(this);
@@ -901,6 +1085,14 @@ export class PostContractCreateGroupCall__Inputs {
   get _private(): boolean {
     return this._call.inputValues[4].value.toBoolean();
   }
+
+  get uri(): string {
+    return this._call.inputValues[5].value.toString();
+  }
+
+  get description(): string {
+    return this._call.inputValues[6].value.toString();
+  }
 }
 
 export class PostContractCreateGroupCall__Outputs {
@@ -912,6 +1104,10 @@ export class PostContractCreateGroupCall__Outputs {
 
   get _groupID(): BigInt {
     return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get groupAddress(): Address {
+    return this._call.outputValues[1].value.toAddress();
   }
 }
 
@@ -961,6 +1157,36 @@ export class SetBanUserCall__Outputs {
   _call: SetBanUserCall;
 
   constructor(call: SetBanUserCall) {
+    this._call = call;
+  }
+}
+
+export class SetUserCall extends ethereum.Call {
+  get inputs(): SetUserCall__Inputs {
+    return new SetUserCall__Inputs(this);
+  }
+
+  get outputs(): SetUserCall__Outputs {
+    return new SetUserCall__Outputs(this);
+  }
+}
+
+export class SetUserCall__Inputs {
+  _call: SetUserCall;
+
+  constructor(call: SetUserCall) {
+    this._call = call;
+  }
+
+  get _user(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class SetUserCall__Outputs {
+  _call: SetUserCall;
+
+  constructor(call: SetUserCall) {
     this._call = call;
   }
 }

@@ -7,7 +7,8 @@ import {
   UpdateGroupPrivacy as UpdateGroupPrivacyEvent,
   Follow as FollowEvent,
   UnFollow as UnFollowEvent,
-  CreatePostGroup as CreatePostGroupEvent
+  CreatePostGroup as CreatePostGroupEvent,
+  MintBatch as MintBatchEvent
 } from "../generated/groups/groups";
 import { User, Post, Group } from "../generated/schema";
 import { BigInt } from "@graphprotocol/graph-ts";
@@ -31,9 +32,12 @@ export function handleCreatePostGroup(event: CreatePostGroupEvent): void {
   postEntity.group = event.params.groupID.toString();
   groupEntity.post = event.params.postID.toString();
 
+  groupEntity.nftAddress = event.params.correspondingNftAddress.toHexString();
+
   groupEntity.integerID = event.params.groupID;
   groupEntity.followers = [];
   groupEntity.numberOfFollowers = 0;
+  groupEntity.description = event.params.description;
 
   if (userEntity.firstCreatedGroupID === null) {
     userEntity.firstCreatedGroupID = event.params.groupID;
@@ -43,6 +47,10 @@ export function handleCreatePostGroup(event: CreatePostGroupEvent): void {
   groupEntity.save();
   postEntity.save();
 }
+
+// export function handleMintBatch(event: MintBatchEvent): void {
+
+// }
 
 export function handleCreateGroup(event: CreateGroupEvent): void {
   let userEntity = User.load(event.params.userID.toString());
@@ -59,11 +67,13 @@ export function handleCreateGroup(event: CreateGroupEvent): void {
   groupEntity.integerID = event.params.groupID;
   groupEntity.followers = [];
   groupEntity.numberOfFollowers = 0;
+  groupEntity.description = event.params.description;
   groupEntity.post = "0";
 
   if (userEntity.firstCreatedGroupID === null) {
     userEntity.firstCreatedGroupID = event.params.groupID;
   }
+
   userEntity.lastCreatedGroupID = event.params.groupID;
   userEntity.save();
   groupEntity.save();
