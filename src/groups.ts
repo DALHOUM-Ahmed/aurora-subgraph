@@ -48,9 +48,7 @@ export function handleCreatePostGroup(event: CreatePostGroupEvent): void {
   postEntity.save();
 }
 
-// export function handleMintBatch(event: MintBatchEvent): void {
-
-// }
+export function handleMintBatch(event: MintBatchEvent): void {}
 
 export function handleCreateGroup(event: CreateGroupEvent): void {
   let userEntity = User.load(event.params.userID.toString());
