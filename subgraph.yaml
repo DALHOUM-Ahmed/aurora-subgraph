@@ -7,9 +7,9 @@ features:
 dataSources:
   - kind: ethereum
     name: users
-    network: cmpTestnet
+    network: goerli
     source:
-      address: "0xF8B5876cDa91d8161090a1d7ae6A42B73657AF1f"
+      address: "0x5C086d818895bbA92Cf5010503930209Bf92574E"
       abi: users
       startBlock: 13038870
     mapping:
@@ -108,9 +108,9 @@ dataSources:
       file: ./src/users.ts
   - kind: ethereum
     name: posts
-    network: cmpTestnet
+    network: goerli
     source:
-      address: "0x5B5D4C90CdFc446274CfF655D529AA9338535576"
+      address: "0x1c614D39E87c6c8651B46A83d5EB1ce56731D283"
       abi: posts
       startBlock: 13038870
     mapping:
@@ -200,9 +200,9 @@ dataSources:
       file: ./src/posts.ts
   - kind: ethereum
     name: groups
-    network: cmpTestnet
+    network: goerli
     source:
-      address: "0x51DB41a157E5790C83ee3E2D8a04d5145f43D04b"
+      address: "0x8603916e654763bd4c0717C05DAB7472eB2dDdEf"
       abi: groups
       startBlock: 13038870
     mapping:
@@ -249,9 +249,9 @@ dataSources:
       file: ./src/groups.ts
   - kind: ethereum
     name: reports
-    network: cmpTestnet
+    network: goerli
     source:
-      address: "0xF503b7229a1EebefCb0A702D8aA810e2d3569933"
+      address: "0x6F15A886afbDa57f15196209173af9b2B87dEc1C"
       abi: reports
       startBlock: 13038870
     mapping:
