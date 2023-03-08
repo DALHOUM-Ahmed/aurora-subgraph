@@ -106,7 +106,6 @@ dataSources:
         - event: SetReadKey(uint256,string)
           handler: handleSetReadKey
       file: ./src/users.ts
-    max-pending-transaction-age: 30
   - kind: ethereum
     name: posts
     network: goerli
@@ -199,7 +198,6 @@ dataSources:
         - event: HidePost(uint256,uint256,bool)
           handler: handleHidePost
       file: ./src/posts.ts
-    max-pending-transaction-age: 30
   - kind: ethereum
     name: groups
     network: goerli
@@ -275,4 +273,3 @@ dataSources:
         - event: ReportReply(uint256,bool,string)
           handler: handleReportReply
       file: ./src/reports.ts
-    max-pending-transaction-age: 30
