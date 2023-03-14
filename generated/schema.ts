@@ -416,21 +416,13 @@ export class Post extends Entity {
     }
   }
 
-  get location(): string | null {
-    let value = this.get("location");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toString();
-    }
+  get withinPrivateGroup(): boolean {
+    let value = this.get("withinPrivateGroup");
+    return value!.toBoolean();
   }
 
-  set location(value: string | null) {
-    if (!value) {
-      this.unset("location");
-    } else {
-      this.set("location", Value.fromString(<string>value));
-    }
+  set withinPrivateGroup(value: boolean) {
+    this.set("withinPrivateGroup", Value.fromBoolean(value));
   }
 }
 

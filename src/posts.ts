@@ -68,10 +68,7 @@ export function handleCreatePost(event: CreatePostEvent): void {
     entity.numberOfReports = 0;
     entity.userStatus = true;
     if (group !== null) {
-      if (group.isPrivate) entity.location = "private group";
-      if (group.isPrivate) entity.location = "public group";
-    } else {
-      entity.location = "profile";
+      entity.withinPrivateGroup = group.isPrivate;
     }
 
     if (user.firstCreatedPostID === null) {
