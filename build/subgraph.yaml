@@ -11,7 +11,7 @@ dataSources:
     source:
       address: "0x5C086d818895bbA92Cf5010503930209Bf92574E"
       abi: users
-      startBlock: 13038870
+      startBlock: 8600765
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -112,7 +112,7 @@ dataSources:
     source:
       address: "0x1c614D39E87c6c8651B46A83d5EB1ce56731D283"
       abi: posts
-      startBlock: 13038870
+      startBlock: 8600765
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -204,7 +204,7 @@ dataSources:
     source:
       address: "0x8603916e654763bd4c0717C05DAB7472eB2dDdEf"
       abi: groups
-      startBlock: 13038870
+      startBlock: 8600765
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -253,7 +253,7 @@ dataSources:
     source:
       address: "0x6F15A886afbDa57f15196209173af9b2B87dEc1C"
       abi: reports
-      startBlock: 13038870
+      startBlock: 8600765
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

@@ -67,6 +67,10 @@ export function handleCreatePost(event: CreatePostEvent): void {
     entity.integerID = event.params.postID;
     entity.numberOfReports = 0;
     entity.userStatus = true;
+    if (group !== null) {
+      entity.withinPrivateGroup = group.isPrivate;
+    }
+
     if (user.firstCreatedPostID === null) {
       user.firstCreatedPostID = event.params.postID;
     }

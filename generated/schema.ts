@@ -415,6 +415,15 @@ export class Post extends Entity {
       this.set("reportReasons", Value.fromStringArray(<Array<string>>value));
     }
   }
+
+  get withinPrivateGroup(): boolean {
+    let value = this.get("withinPrivateGroup");
+    return value!.toBoolean();
+  }
+
+  set withinPrivateGroup(value: boolean) {
+    this.set("withinPrivateGroup", Value.fromBoolean(value));
+  }
 }
 
 export class Poll extends Entity {

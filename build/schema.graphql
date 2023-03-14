@@ -30,6 +30,7 @@ type Post @entity {
   userStatus: Boolean
   numberOfReports: Int
   reportReasons: [String!]
+  withinPrivateGroup: Boolean
 }
 #add isGroup bool to avoid fail on unknown
 

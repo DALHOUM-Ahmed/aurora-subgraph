@@ -1,0 +1,5 @@
+Mar 07 05:16:27.498 WARN Trying again after eth_getTransactionReceipt RPC call for transaction 0x4dc42ce59b7e81675449f9704d4118afe5378a79bf85a1ad926b40cc3ddcbc08 failed (attempt #10) with result Err(Transport(Code(429))), provider: goerli-rpc-0, component: BlockIngestor
+Mar 07 05:16:27.500 WARN Trying again after eth_getTransactionReceipt RPC call for transaction 0x6fa63b4464ecb64d10e40d4c16809c020168f03d42af6c1287f16ede95e92be2 failed (attempt #10) with result Err(Transport(Code(429))), provider: goerli-rpc-0, component: BlockIngestor
+Mar 07 05:16:27.506 WARN Trying again after eth_getTransactionReceipt RPC call for transaction 0x85b072f5e88b0b515bf65dac4d16b2b414f009c588f6d4562b4fcd2824486492 failed (attempt #10) with result Err(Transport(Code(429))), provider: goerli-rpc-0, component: BlockIngestor
+Mar 07 05:16:27.513 WARN Trying again after eth_getTransactionReceipt RPC call for transaction 0xee41ca81cdc929f85347fba36c0ae099599d632b832a567d1a63ee31441ada71 failed (attempt #10) with result Err(Transport(Code(429))), provider: goerli-rpc-0, component: BlockIngestor
+
