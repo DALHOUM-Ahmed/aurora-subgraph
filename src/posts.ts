@@ -374,6 +374,8 @@ export function handleAddComment(event: AddCommentEvent): void {
   // entity.taggedGroups = event.params.tags.groups.map(e => e.toString());
   entity.taggedGroups = [];
   entity.reportReasons = [];
+  entity.hiddenByAdmin = false;
+  entity.hiddenByAuthor = false;
   for (let i = 0; i < event.params.tags.groups.length; i++) {
     entity.taggedGroups = entity.taggedGroups!.concat([
       event.params.tags.groups[i].toString()
@@ -413,6 +415,8 @@ export function handleAddReply(event: AddReplyEvent): void {
   entity.likers = [];
   entity.comment = event.params.commentID.toString();
   entity.author = event.params._executorID.toString();
+  entity.hiddenByAdmin = false;
+  entity.hiddenByAuthor = false;
   entity.integerID = event.params.replyID;
   entity.numberOfReports = 0;
   // entity.taggedPeople = event.params.tags.people.map(e => e.toString());
