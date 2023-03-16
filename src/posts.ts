@@ -9,8 +9,8 @@ import {
   AddPostLike as AddPostLikeEvent,
   AddReply as AddReplyEvent,
   AddReplyLike as AddReplyLikeEvent,
-  DeleteComment as DeleteCommentEvent,
-  DeleteReply as DeleteReplyEvent,
+  HideComment as HideCommentEvent,
+  HideReply as HideReplyEvent,
   EditComment as EditCommentEvent,
   EditReply as EditReplyEvent,
   RemoveCommentLike as RemoveCommentLikeEvent,
@@ -545,40 +545,28 @@ export function handleRemoveReplyLike(event: RemoveReplyLikeEvent): void {
   entity.save();
 }
 
-export function handleDeleteComment(event: DeleteCommentEvent): void {
+export function handleHideComment(event: HideCommentEvent): void {
   let entity = Comment.load(event.params.commentID.toString());
-
-  if (entity == null) return;
-  let postEntity = Post.load(entity.post);
-  if (!postEntity) {
-    return;
+  if (entity !== null) {
+    if (event.params.authorChoice) {
+      entity.hiddenByAuthor = !entity.hiddenByAuthor;
+    } else {
+      entity.hiddenByAdmin = !entity.hiddenByAdmin;
+    }
+    entity.save();
   }
-  postEntity.numberOfComments--;
-  entity.body = "";
-  entity.post = "";
-  entity.createdAt = new BigInt(0);
-  entity.likes = 0;
-  entity.likers = [];
-  entity.taggedGroups = [];
-  entity.taggedPeople = [];
-  entity.author = "";
-  postEntity.save();
-  entity.save();
 }
 
-export function handleDeleteReply(event: DeleteReplyEvent): void {
+export function handleHideReply(event: HideReplyEvent): void {
   let entity = Reply.load(event.params.replyID.toString());
-
-  if (entity == null) return;
-  entity.body = "";
-  entity.comment = "";
-  entity.createdAt = new BigInt(0);
-  entity.likes = 0;
-  entity.likers = [];
-  entity.taggedGroups = [];
-  entity.taggedPeople = [];
-  entity.author = "";
-  entity.save();
+  if (entity !== null) {
+    if (event.params.authorChoice) {
+      entity.hiddenByAuthor = !entity.hiddenByAuthor;
+    } else {
+      entity.hiddenByAdmin = !entity.hiddenByAdmin;
+    }
+    entity.save();
+  }
 }
 
 export function handleHidePost(event: HidePostEvent): void {

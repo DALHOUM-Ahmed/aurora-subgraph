@@ -9,9 +9,9 @@ dataSources:
     name: users
     network: goerli
     source:
-      address: "0x5C086d818895bbA92Cf5010503930209Bf92574E"
+      address: "0x3fa063B5A493aC59cDa75329FDA16779400227A5"
       abi: users
-      startBlock: 8600765
+      startBlock: 8663230
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -110,9 +110,9 @@ dataSources:
     name: posts
     network: goerli
     source:
-      address: "0x1c614D39E87c6c8651B46A83d5EB1ce56731D283"
+      address: "0xF9CA761C46535661e6ddb493102070C304DB73F4"
       abi: posts
-      startBlock: 8600765
+      startBlock: 8663230
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -127,7 +127,7 @@ dataSources:
         - AddPostLike
         - AddReply
         - AddReplyLike
-        - DeleteComment
+        - HideReply
         - DeleteReply
         - EditComment
         - EditReply
@@ -161,10 +161,10 @@ dataSources:
           handler: handleAddReply
         - event: AddReplyLike(uint256,uint256)
           handler: handleAddReplyLike
-        - event: DeleteComment(uint256,uint256)
-          handler: handleDeleteComment
-        - event: DeleteReply(uint256,uint256)
-          handler: handleDeleteReply
+        - event: HideComment(uint256,uint256,bool)
+          handler: handleHideComment
+        - event: HideReply(uint256,uint256,bool)
+          handler: handleHideReply
         - event: EditComment(uint256,uint256,string,(uint256[],uint256[]))
           handler: handleEditComment
         - event: EditReply(uint256,uint256,string,(uint256[],uint256[]))
@@ -202,9 +202,9 @@ dataSources:
     name: groups
     network: goerli
     source:
-      address: "0x8603916e654763bd4c0717C05DAB7472eB2dDdEf"
+      address: "0xd9BC602a9178E8C83f2b45f49B28fc78a5604518"
       abi: groups
-      startBlock: 8600765
+      startBlock: 8663230
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -251,9 +251,9 @@ dataSources:
     name: reports
     network: goerli
     source:
-      address: "0x6F15A886afbDa57f15196209173af9b2B87dEc1C"
+      address: "0xcAf590c1cd908e107bE17E20b059be9f6e6aD8D7"
       abi: reports
-      startBlock: 8600765
+      startBlock: 8663230
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

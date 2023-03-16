@@ -306,44 +306,6 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "_executorID",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "commentID",
-        "type": "uint256"
-      }
-    ],
-    "name": "DeleteComment",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_executorID",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "replyID",
-        "type": "uint256"
-      }
-    ],
-    "name": "DeleteReply",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
         "name": "postID",
         "type": "uint256"
       },
@@ -474,6 +436,31 @@
       {
         "indexed": false,
         "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "authorChoice",
+        "type": "bool"
+      }
+    ],
+    "name": "HideComment",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
         "name": "postID",
         "type": "uint256"
       },
@@ -485,6 +472,31 @@
       }
     ],
     "name": "HidePost",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_executorID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "authorChoice",
+        "type": "bool"
+      }
+    ],
+    "name": "HideReply",
     "type": "event"
   },
   {
@@ -1012,34 +1024,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "executor",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "postID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "expiredSession",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "newSession",
-        "type": "bytes32"
-      }
-    ],
-    "name": "adminHidePost",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "administration",
     "outputs": [
@@ -1050,34 +1034,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "executor",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "postID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "expiredSession",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "newSession",
-        "type": "bytes32"
-      }
-    ],
-    "name": "authorHidePost",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1131,62 +1087,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "commentID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "expiredSession",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "newSession",
-        "type": "bytes32"
-      }
-    ],
-    "name": "deleteComment",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_user",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "replyID",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "expiredSession",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "newSession",
-        "type": "bytes32"
-      }
-    ],
-    "name": "deleteReply",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1820,6 +1720,90 @@
       }
     ],
     "name": "setGlobalTransferActivated",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "commentID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "toggleHideComment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "postID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "toggleHidePost",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "executor",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "replyID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "toggleHideReply",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

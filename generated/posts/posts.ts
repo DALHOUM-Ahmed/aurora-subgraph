@@ -290,50 +290,6 @@ export class CreatePostTaggedElementsStruct extends ethereum.Tuple {
   }
 }
 
-export class DeleteComment extends ethereum.Event {
-  get params(): DeleteComment__Params {
-    return new DeleteComment__Params(this);
-  }
-}
-
-export class DeleteComment__Params {
-  _event: DeleteComment;
-
-  constructor(event: DeleteComment) {
-    this._event = event;
-  }
-
-  get _executorID(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get commentID(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-}
-
-export class DeleteReply extends ethereum.Event {
-  get params(): DeleteReply__Params {
-    return new DeleteReply__Params(this);
-  }
-}
-
-export class DeleteReply__Params {
-  _event: DeleteReply;
-
-  constructor(event: DeleteReply) {
-    this._event = event;
-  }
-
-  get _executorID(): BigInt {
-    return this._event.parameters[0].value.toBigInt();
-  }
-
-  get replyID(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-}
-
 export class EditBackgroundColor extends ethereum.Event {
   get params(): EditBackgroundColor__Params {
     return new EditBackgroundColor__Params(this);
@@ -462,6 +418,32 @@ export class EditReplyTagsStruct extends ethereum.Tuple {
   }
 }
 
+export class HideComment extends ethereum.Event {
+  get params(): HideComment__Params {
+    return new HideComment__Params(this);
+  }
+}
+
+export class HideComment__Params {
+  _event: HideComment;
+
+  constructor(event: HideComment) {
+    this._event = event;
+  }
+
+  get _executorID(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get commentID(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get authorChoice(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+}
+
 export class HidePost extends ethereum.Event {
   get params(): HidePost__Params {
     return new HidePost__Params(this);
@@ -480,6 +462,32 @@ export class HidePost__Params {
   }
 
   get postID(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
+  }
+
+  get authorChoice(): boolean {
+    return this._event.parameters[2].value.toBoolean();
+  }
+}
+
+export class HideReply extends ethereum.Event {
+  get params(): HideReply__Params {
+    return new HideReply__Params(this);
+  }
+}
+
+export class HideReply__Params {
+  _event: HideReply;
+
+  constructor(event: HideReply) {
+    this._event = event;
+  }
+
+  get _executorID(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get replyID(): BigInt {
     return this._event.parameters[1].value.toBigInt();
   }
 
@@ -1757,174 +1765,6 @@ export class AddVoteCall__Outputs {
   }
 }
 
-export class AdminHidePostCall extends ethereum.Call {
-  get inputs(): AdminHidePostCall__Inputs {
-    return new AdminHidePostCall__Inputs(this);
-  }
-
-  get outputs(): AdminHidePostCall__Outputs {
-    return new AdminHidePostCall__Outputs(this);
-  }
-}
-
-export class AdminHidePostCall__Inputs {
-  _call: AdminHidePostCall;
-
-  constructor(call: AdminHidePostCall) {
-    this._call = call;
-  }
-
-  get executor(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get postID(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get expiredSession(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-
-  get newSession(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
-  }
-}
-
-export class AdminHidePostCall__Outputs {
-  _call: AdminHidePostCall;
-
-  constructor(call: AdminHidePostCall) {
-    this._call = call;
-  }
-}
-
-export class AuthorHidePostCall extends ethereum.Call {
-  get inputs(): AuthorHidePostCall__Inputs {
-    return new AuthorHidePostCall__Inputs(this);
-  }
-
-  get outputs(): AuthorHidePostCall__Outputs {
-    return new AuthorHidePostCall__Outputs(this);
-  }
-}
-
-export class AuthorHidePostCall__Inputs {
-  _call: AuthorHidePostCall;
-
-  constructor(call: AuthorHidePostCall) {
-    this._call = call;
-  }
-
-  get executor(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get postID(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get expiredSession(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-
-  get newSession(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
-  }
-}
-
-export class AuthorHidePostCall__Outputs {
-  _call: AuthorHidePostCall;
-
-  constructor(call: AuthorHidePostCall) {
-    this._call = call;
-  }
-}
-
-export class DeleteCommentCall extends ethereum.Call {
-  get inputs(): DeleteCommentCall__Inputs {
-    return new DeleteCommentCall__Inputs(this);
-  }
-
-  get outputs(): DeleteCommentCall__Outputs {
-    return new DeleteCommentCall__Outputs(this);
-  }
-}
-
-export class DeleteCommentCall__Inputs {
-  _call: DeleteCommentCall;
-
-  constructor(call: DeleteCommentCall) {
-    this._call = call;
-  }
-
-  get _user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get commentID(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get expiredSession(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-
-  get newSession(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
-  }
-}
-
-export class DeleteCommentCall__Outputs {
-  _call: DeleteCommentCall;
-
-  constructor(call: DeleteCommentCall) {
-    this._call = call;
-  }
-}
-
-export class DeleteReplyCall extends ethereum.Call {
-  get inputs(): DeleteReplyCall__Inputs {
-    return new DeleteReplyCall__Inputs(this);
-  }
-
-  get outputs(): DeleteReplyCall__Outputs {
-    return new DeleteReplyCall__Outputs(this);
-  }
-}
-
-export class DeleteReplyCall__Inputs {
-  _call: DeleteReplyCall;
-
-  constructor(call: DeleteReplyCall) {
-    this._call = call;
-  }
-
-  get _user(): Address {
-    return this._call.inputValues[0].value.toAddress();
-  }
-
-  get replyID(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
-  }
-
-  get expiredSession(): Bytes {
-    return this._call.inputValues[2].value.toBytes();
-  }
-
-  get newSession(): Bytes {
-    return this._call.inputValues[3].value.toBytes();
-  }
-}
-
-export class DeleteReplyCall__Outputs {
-  _call: DeleteReplyCall;
-
-  constructor(call: DeleteReplyCall) {
-    this._call = call;
-  }
-}
-
 export class EditCommentCall extends ethereum.Call {
   get inputs(): EditCommentCall__Inputs {
     return new EditCommentCall__Inputs(this);
@@ -2371,6 +2211,132 @@ export class SetGlobalTransferActivatedCall__Outputs {
   _call: SetGlobalTransferActivatedCall;
 
   constructor(call: SetGlobalTransferActivatedCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleHideCommentCall extends ethereum.Call {
+  get inputs(): ToggleHideCommentCall__Inputs {
+    return new ToggleHideCommentCall__Inputs(this);
+  }
+
+  get outputs(): ToggleHideCommentCall__Outputs {
+    return new ToggleHideCommentCall__Outputs(this);
+  }
+}
+
+export class ToggleHideCommentCall__Inputs {
+  _call: ToggleHideCommentCall;
+
+  constructor(call: ToggleHideCommentCall) {
+    this._call = call;
+  }
+
+  get executor(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get commentID(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+}
+
+export class ToggleHideCommentCall__Outputs {
+  _call: ToggleHideCommentCall;
+
+  constructor(call: ToggleHideCommentCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleHidePostCall extends ethereum.Call {
+  get inputs(): ToggleHidePostCall__Inputs {
+    return new ToggleHidePostCall__Inputs(this);
+  }
+
+  get outputs(): ToggleHidePostCall__Outputs {
+    return new ToggleHidePostCall__Outputs(this);
+  }
+}
+
+export class ToggleHidePostCall__Inputs {
+  _call: ToggleHidePostCall;
+
+  constructor(call: ToggleHidePostCall) {
+    this._call = call;
+  }
+
+  get executor(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get postID(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+}
+
+export class ToggleHidePostCall__Outputs {
+  _call: ToggleHidePostCall;
+
+  constructor(call: ToggleHidePostCall) {
+    this._call = call;
+  }
+}
+
+export class ToggleHideReplyCall extends ethereum.Call {
+  get inputs(): ToggleHideReplyCall__Inputs {
+    return new ToggleHideReplyCall__Inputs(this);
+  }
+
+  get outputs(): ToggleHideReplyCall__Outputs {
+    return new ToggleHideReplyCall__Outputs(this);
+  }
+}
+
+export class ToggleHideReplyCall__Inputs {
+  _call: ToggleHideReplyCall;
+
+  constructor(call: ToggleHideReplyCall) {
+    this._call = call;
+  }
+
+  get executor(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get replyID(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[2].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+}
+
+export class ToggleHideReplyCall__Outputs {
+  _call: ToggleHideReplyCall;
+
+  constructor(call: ToggleHideReplyCall) {
     this._call = call;
   }
 }

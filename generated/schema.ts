@@ -1806,6 +1806,24 @@ export class Comment extends Entity {
       this.set("reportReasons", Value.fromStringArray(<Array<string>>value));
     }
   }
+
+  get hiddenByAdmin(): boolean {
+    let value = this.get("hiddenByAdmin");
+    return value!.toBoolean();
+  }
+
+  set hiddenByAdmin(value: boolean) {
+    this.set("hiddenByAdmin", Value.fromBoolean(value));
+  }
+
+  get hiddenByAuthor(): boolean {
+    let value = this.get("hiddenByAuthor");
+    return value!.toBoolean();
+  }
+
+  set hiddenByAuthor(value: boolean) {
+    this.set("hiddenByAuthor", Value.fromBoolean(value));
+  }
 }
 
 export class Reply extends Entity {
@@ -1993,5 +2011,23 @@ export class Reply extends Entity {
     } else {
       this.set("reportReasons", Value.fromStringArray(<Array<string>>value));
     }
+  }
+
+  get hiddenByAdmin(): boolean {
+    let value = this.get("hiddenByAdmin");
+    return value!.toBoolean();
+  }
+
+  set hiddenByAdmin(value: boolean) {
+    this.set("hiddenByAdmin", Value.fromBoolean(value));
+  }
+
+  get hiddenByAuthor(): boolean {
+    let value = this.get("hiddenByAuthor");
+    return value!.toBoolean();
+  }
+
+  set hiddenByAuthor(value: boolean) {
+    this.set("hiddenByAuthor", Value.fromBoolean(value));
   }
 }
