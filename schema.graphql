@@ -31,6 +31,7 @@ type Post @entity {
   numberOfReports: Int
   reportReasons: [String!]
   location: String
+  encryptionCID: String
 }
 #add isGroup bool to avoid fail on unknown
 
@@ -142,6 +143,7 @@ type Comment @entity {
   reportReasons: [String!]
   hiddenByAdmin: Boolean!
   hiddenByAuthor: Boolean!
+  encryptionCID: String
 }
 
 type Reply @entity {
@@ -160,4 +162,5 @@ type Reply @entity {
   reportReasons: [String!]
   hiddenByAdmin: Boolean!
   hiddenByAuthor: Boolean!
+  encryptionCID: String
 }

@@ -51,7 +51,6 @@ export function handleCreatePost(event: CreatePostEvent): void {
     if (user.userAddress === "") return;
     entity.author = event.params._authorID.toString();
     entity.title = event.params.title;
-    entity.body = event.params.body;
     entity.tags = event.params.tags;
     entity.groupID = event.params.groupID;
     entity.cid = event.params.CIDAsset;
@@ -70,11 +69,17 @@ export function handleCreatePost(event: CreatePostEvent): void {
     if (group !== null) {
       if (group.isPrivate) {
         entity.location = "private group";
+        entity.body = "";
+        entity.encryptionCID = event.params.body;
       } else {
+        entity.body = event.params.body;
         entity.location = "public group";
+        entity.encryptionCID = "";
       }
     } else {
+      entity.body = event.params.body;
       entity.location = "profile";
+      entity.encryptionCID = "";
     }
 
     if (user.firstCreatedPostID === null) {
@@ -246,7 +251,12 @@ export function handleRemoveVote(event: RemoveVoteEvent): void {
 export function handleUpdateBody(event: UpdateBodyEvent): void {
   let entity = Post.load(event.params.postID.toString());
   if (entity) {
-    entity.body = event.params.body;
+    if ((entity.location = "private group")) {
+      entity.encryptionCID = event.params.body;
+    } else {
+      entity.body = event.params.body;
+    }
+
     entity.editedAt = event.block.timestamp;
     entity.save();
   }
@@ -328,7 +338,11 @@ export function handleUpdateTaggedGroups(event: UpdateTaggedGroupsEvent): void {
 export function handleEditComment(event: EditCommentEvent): void {
   let entity = Comment.load(event.params.commentID.toString());
   if (entity) {
-    entity.body = event.params.newComment;
+    if (entity.encryptionCID!.length > 0) {
+      entity.encryptionCID = event.params.newComment;
+    } else {
+      entity.body = event.params.newComment;
+    }
     entity.editedAt = event.block.timestamp;
     entity.save();
   }
@@ -337,7 +351,11 @@ export function handleEditComment(event: EditCommentEvent): void {
 export function handleEditReply(event: EditReplyEvent): void {
   let entity = Reply.load(event.params.replyID.toString());
   if (entity) {
-    entity.body = event.params.newText;
+    if (entity.encryptionCID!.length > 0) {
+      entity.encryptionCID = event.params.newText;
+    } else {
+      entity.body = event.params.newText;
+    }
     entity.editedAt = event.block.timestamp;
     entity.save();
   }
@@ -363,7 +381,6 @@ export function handleUpdateTags(event: UpdateTagsEvent): void {
 
 export function handleAddComment(event: AddCommentEvent): void {
   let entity = new Comment(event.params.commentID.toString());
-  entity.body = event.params.comment;
   entity.createdAt = event.block.timestamp;
   entity.likes = 0;
   entity.likers = [];
@@ -393,6 +410,14 @@ export function handleAddComment(event: AddCommentEvent): void {
   if (!postEntity) {
     return;
   }
+
+  if (postEntity.location === "private group") {
+    entity.encryptionCID = event.params.comment;
+    entity.body = "";
+  } else {
+    entity.body = event.params.comment;
+    entity.encryptionCID = "";
+  }
   if (postEntity.firstCreatedCommentID === null) {
     postEntity.firstCreatedCommentID = event.params.commentID;
   }
@@ -409,7 +434,6 @@ export function handleAddComment(event: AddCommentEvent): void {
 
 export function handleAddReply(event: AddReplyEvent): void {
   let entity = new Reply(event.params.replyID.toString());
-  entity.body = event.params.text;
   entity.createdAt = event.block.timestamp;
   entity.likes = 0;
   entity.likers = [];
@@ -440,6 +464,13 @@ export function handleAddReply(event: AddReplyEvent): void {
   let commentEntity = Comment.load(event.params.commentID.toString());
   if (commentEntity === null) {
     return;
+  }
+
+  if (commentEntity.encryptionCID!.length > 0) {
+    entity.encryptionCID = event.params.text;
+  } else {
+    entity.body = event.params.text;
+    entity.encryptionCID = "";
   }
   if (commentEntity.firstCreatedReplyID === null) {
     commentEntity.firstCreatedReplyID = event.params.replyID;

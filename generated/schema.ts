@@ -432,6 +432,23 @@ export class Post extends Entity {
       this.set("location", Value.fromString(<string>value));
     }
   }
+
+  get encryptionCID(): string | null {
+    let value = this.get("encryptionCID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set encryptionCID(value: string | null) {
+    if (!value) {
+      this.unset("encryptionCID");
+    } else {
+      this.set("encryptionCID", Value.fromString(<string>value));
+    }
+  }
 }
 
 export class Poll extends Entity {
@@ -1824,6 +1841,23 @@ export class Comment extends Entity {
   set hiddenByAuthor(value: boolean) {
     this.set("hiddenByAuthor", Value.fromBoolean(value));
   }
+
+  get encryptionCID(): string | null {
+    let value = this.get("encryptionCID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set encryptionCID(value: string | null) {
+    if (!value) {
+      this.unset("encryptionCID");
+    } else {
+      this.set("encryptionCID", Value.fromString(<string>value));
+    }
+  }
 }
 
 export class Reply extends Entity {
@@ -2029,5 +2063,22 @@ export class Reply extends Entity {
 
   set hiddenByAuthor(value: boolean) {
     this.set("hiddenByAuthor", Value.fromBoolean(value));
+  }
+
+  get encryptionCID(): string | null {
+    let value = this.get("encryptionCID");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set encryptionCID(value: string | null) {
+    if (!value) {
+      this.unset("encryptionCID");
+    } else {
+      this.set("encryptionCID", Value.fromString(<string>value));
+    }
   }
 }
