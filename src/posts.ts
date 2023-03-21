@@ -466,8 +466,13 @@ export function handleAddReply(event: AddReplyEvent): void {
     return;
   }
 
-  if (commentEntity.encryptionCID!.length > 0) {
-    entity.encryptionCID = event.params.text;
+  if (commentEntity.encryptionCID !== null) {
+    if (commentEntity.encryptionCID!.length > 0) {
+      entity.encryptionCID = event.params.text;
+    } else {
+      entity.body = event.params.text;
+      entity.encryptionCID = "";
+    }
   } else {
     entity.body = event.params.text;
     entity.encryptionCID = "";
