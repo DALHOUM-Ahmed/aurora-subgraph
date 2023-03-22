@@ -410,14 +410,20 @@ export function handleAddComment(event: AddCommentEvent): void {
   if (!postEntity) {
     return;
   }
-
-  if (postEntity.location === "private group") {
-    entity.encryptionCID = event.params.comment;
-    entity.body = "";
+  let group = Group.load(postEntity.groupID.toString());
+  if (group !== null) {
+    if (group.isPrivate) {
+      entity.body = "";
+      entity.encryptionCID = event.params.comment;
+    } else {
+      entity.body = event.params.comment;
+      entity.encryptionCID = "";
+    }
   } else {
     entity.body = event.params.comment;
     entity.encryptionCID = "";
   }
+
   if (postEntity.firstCreatedCommentID === null) {
     postEntity.firstCreatedCommentID = event.params.commentID;
   }
@@ -466,8 +472,15 @@ export function handleAddReply(event: AddReplyEvent): void {
     return;
   }
 
-  if (commentEntity.encryptionCID !== null) {
-    if (commentEntity.encryptionCID!.length > 0) {
+  let postEntity = Post.load(commentEntity.post);
+  if (postEntity === null) {
+    return;
+  }
+
+  let group = Group.load(postEntity.groupID.toString());
+  if (group !== null) {
+    if (group.isPrivate) {
+      entity.body = "";
       entity.encryptionCID = event.params.text;
     } else {
       entity.body = event.params.text;
@@ -477,6 +490,7 @@ export function handleAddReply(event: AddReplyEvent): void {
     entity.body = event.params.text;
     entity.encryptionCID = "";
   }
+
   if (commentEntity.firstCreatedReplyID === null) {
     commentEntity.firstCreatedReplyID = event.params.replyID;
   }
