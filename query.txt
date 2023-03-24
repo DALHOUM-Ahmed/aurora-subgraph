@@ -40,7 +40,7 @@ fieldtype @derivedFrom(field: "author")
 
 //find 10 first comments of post
 {
-  comments(first: 10, where: {post.id_eq: "1"}, orderBy: id, orderDirection: desc) {
+  comments(first: 10, where: {post: "1"}, orderBy: id, orderDirection: desc) {
     id
   }
 }
