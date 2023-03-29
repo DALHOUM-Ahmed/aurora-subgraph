@@ -7,11 +7,11 @@ features:
 dataSources:
   - kind: ethereum
     name: users
-    network: goerli
+    network: caduceus
     source:
-      address: "0x3fa063B5A493aC59cDa75329FDA16779400227A5"
+      address: "0xA2498cFe17211c87c9013566E39EC4EC7d51595E"
       abi: users
-      startBlock: 8663230
+      startBlock: 9482434
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -108,11 +108,11 @@ dataSources:
       file: users/users.wasm
   - kind: ethereum
     name: posts
-    network: goerli
+    network: caduceus
     source:
-      address: "0xF9CA761C46535661e6ddb493102070C304DB73F4"
+      address: "0x980d7b53f6A0E2B2262B1a9F2f9717af528c7e0b"
       abi: posts
-      startBlock: 8663230
+      startBlock: 9482434
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -200,11 +200,11 @@ dataSources:
       file: posts/posts.wasm
   - kind: ethereum
     name: groups
-    network: goerli
+    network: caduceus
     source:
-      address: "0xd9BC602a9178E8C83f2b45f49B28fc78a5604518"
+      address: "0xA48384B917C50c9caf96e123e0A6d3Ef04640401"
       abi: groups
-      startBlock: 8663230
+      startBlock: 9482434
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -249,11 +249,11 @@ dataSources:
       file: groups/groups.wasm
   - kind: ethereum
     name: reports
-    network: goerli
+    network: caduceus
     source:
-      address: "0xcAf590c1cd908e107bE17E20b059be9f6e6aD8D7"
+      address: "0xb9b8D954811b9a810ebBd8782d15d2ea5e0bf2e5"
       abi: reports
-      startBlock: 8663230
+      startBlock: 9482434
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

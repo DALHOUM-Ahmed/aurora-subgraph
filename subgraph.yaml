@@ -110,7 +110,7 @@ dataSources:
     name: posts
     network: caduceus
     source:
-      address: "0xFe8e99808Ac47eBd0B104a5632AF49493c02689b"
+      address: "0x980d7b53f6A0E2B2262B1a9F2f9717af528c7e0b"
       abi: posts
       startBlock: 9482434
     mapping:
