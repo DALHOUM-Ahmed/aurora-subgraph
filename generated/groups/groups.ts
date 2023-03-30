@@ -274,6 +274,28 @@ export class UpdateGroupPrivacy__Params {
   }
 }
 
+export class addMembersToGroup extends ethereum.Event {
+  get params(): addMembersToGroup__Params {
+    return new addMembersToGroup__Params(this);
+  }
+}
+
+export class addMembersToGroup__Params {
+  _event: addMembersToGroup;
+
+  constructor(event: addMembersToGroup) {
+    this._event = event;
+  }
+
+  get groupID(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+
+  get members(): Array<BigInt> {
+    return this._event.parameters[1].value.toBigIntArray();
+  }
+}
+
 export class groups__groupByIDResult {
   value0: string;
   value1: string;
@@ -437,18 +459,20 @@ export class groups extends ethereum.SmartContract {
     _about: string,
     _description: string,
     _private: boolean,
+    members: Array<BigInt>,
     expiredSession: Bytes,
     newSession: Bytes
   ): BigInt {
     let result = super.call(
       "createGroup",
-      "createGroup(address,string,string,string,bool,bytes32,bytes32):(uint256)",
+      "createGroup(address,string,string,string,bool,uint256[],bytes32,bytes32):(uint256)",
       [
         ethereum.Value.fromAddress(_user),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_about),
         ethereum.Value.fromString(_description),
         ethereum.Value.fromBoolean(_private),
+        ethereum.Value.fromUnsignedBigIntArray(members),
         ethereum.Value.fromFixedBytes(expiredSession),
         ethereum.Value.fromFixedBytes(newSession)
       ]
@@ -463,18 +487,20 @@ export class groups extends ethereum.SmartContract {
     _about: string,
     _description: string,
     _private: boolean,
+    members: Array<BigInt>,
     expiredSession: Bytes,
     newSession: Bytes
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "createGroup",
-      "createGroup(address,string,string,string,bool,bytes32,bytes32):(uint256)",
+      "createGroup(address,string,string,string,bool,uint256[],bytes32,bytes32):(uint256)",
       [
         ethereum.Value.fromAddress(_user),
         ethereum.Value.fromString(_name),
         ethereum.Value.fromString(_about),
         ethereum.Value.fromString(_description),
         ethereum.Value.fromBoolean(_private),
+        ethereum.Value.fromUnsignedBigIntArray(members),
         ethereum.Value.fromFixedBytes(expiredSession),
         ethereum.Value.fromFixedBytes(newSession)
       ]
@@ -825,6 +851,38 @@ export class groups extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
+
+  userIsPrivateNonNftGroupMember(param0: BigInt, param1: BigInt): boolean {
+    let result = super.call(
+      "userIsPrivateNonNftGroupMember",
+      "userIsPrivateNonNftGroupMember(uint256,uint256):(bool)",
+      [
+        ethereum.Value.fromUnsignedBigInt(param0),
+        ethereum.Value.fromUnsignedBigInt(param1)
+      ]
+    );
+
+    return result[0].toBoolean();
+  }
+
+  try_userIsPrivateNonNftGroupMember(
+    param0: BigInt,
+    param1: BigInt
+  ): ethereum.CallResult<boolean> {
+    let result = super.tryCall(
+      "userIsPrivateNonNftGroupMember",
+      "userIsPrivateNonNftGroupMember(uint256,uint256):(bool)",
+      [
+        ethereum.Value.fromUnsignedBigInt(param0),
+        ethereum.Value.fromUnsignedBigInt(param1)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBoolean());
+  }
 }
 
 export class ConstructorCall extends ethereum.Call {
@@ -857,6 +915,52 @@ export class ConstructorCall__Outputs {
   _call: ConstructorCall;
 
   constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class AddMembersToPrivateGroupCall extends ethereum.Call {
+  get inputs(): AddMembersToPrivateGroupCall__Inputs {
+    return new AddMembersToPrivateGroupCall__Inputs(this);
+  }
+
+  get outputs(): AddMembersToPrivateGroupCall__Outputs {
+    return new AddMembersToPrivateGroupCall__Outputs(this);
+  }
+}
+
+export class AddMembersToPrivateGroupCall__Inputs {
+  _call: AddMembersToPrivateGroupCall;
+
+  constructor(call: AddMembersToPrivateGroupCall) {
+    this._call = call;
+  }
+
+  get _groupID(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _user(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get members(): Array<BigInt> {
+    return this._call.inputValues[2].value.toBigIntArray();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+}
+
+export class AddMembersToPrivateGroupCall__Outputs {
+  _call: AddMembersToPrivateGroupCall;
+
+  constructor(call: AddMembersToPrivateGroupCall) {
     this._call = call;
   }
 }
@@ -898,12 +1002,16 @@ export class CreateGroupCall__Inputs {
     return this._call.inputValues[4].value.toBoolean();
   }
 
+  get members(): Array<BigInt> {
+    return this._call.inputValues[5].value.toBigIntArray();
+  }
+
   get expiredSession(): Bytes {
-    return this._call.inputValues[5].value.toBytes();
+    return this._call.inputValues[6].value.toBytes();
   }
 
   get newSession(): Bytes {
-    return this._call.inputValues[6].value.toBytes();
+    return this._call.inputValues[7].value.toBytes();
   }
 }
 
@@ -1108,6 +1216,56 @@ export class PostContractCreateGroupCall__Outputs {
 
   get groupAddress(): Address {
     return this._call.outputValues[1].value.toAddress();
+  }
+}
+
+export class SetAdminCall extends ethereum.Call {
+  get inputs(): SetAdminCall__Inputs {
+    return new SetAdminCall__Inputs(this);
+  }
+
+  get outputs(): SetAdminCall__Outputs {
+    return new SetAdminCall__Outputs(this);
+  }
+}
+
+export class SetAdminCall__Inputs {
+  _call: SetAdminCall;
+
+  constructor(call: SetAdminCall) {
+    this._call = call;
+  }
+
+  get _groupID(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _user(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get adminID(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get value(): boolean {
+    return this._call.inputValues[3].value.toBoolean();
+  }
+
+  get expiredSession(): Bytes {
+    return this._call.inputValues[4].value.toBytes();
+  }
+
+  get newSession(): Bytes {
+    return this._call.inputValues[5].value.toBytes();
+  }
+}
+
+export class SetAdminCall__Outputs {
+  _call: SetAdminCall;
+
+  constructor(call: SetAdminCall) {
+    this._call = call;
   }
 }
 

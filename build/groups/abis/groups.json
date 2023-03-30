@@ -272,6 +272,25 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "groupID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "members",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "addMembersToGroup",
+    "type": "event"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -288,6 +307,39 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_groupID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "members",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "addMembersToPrivateGroup",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -367,6 +419,11 @@
         "internalType": "bool",
         "name": "_private",
         "type": "bool"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "members",
+        "type": "uint256[]"
       },
       {
         "internalType": "bytes32",
@@ -773,6 +830,44 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_groupID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "adminID",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "value",
+        "type": "bool"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "expiredSession",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "newSession",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "executor",
         "type": "address"
@@ -900,6 +995,30 @@
         "internalType": "contract User",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "userIsPrivateNonNftGroupMember",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",

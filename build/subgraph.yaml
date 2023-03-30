@@ -112,7 +112,7 @@ dataSources:
     source:
       address: "0x980d7b53f6A0E2B2262B1a9F2f9717af528c7e0b"
       abi: posts
-      startBlock: 9482434
+      startBlock: 9645224
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -202,9 +202,9 @@ dataSources:
     name: groups
     network: caduceus
     source:
-      address: "0xA48384B917C50c9caf96e123e0A6d3Ef04640401"
+      address: "0x8E49C53B4c240F47330C27aE4a7B7102aE61684E"
       abi: groups
-      startBlock: 9482434
+      startBlock: 9645224
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -253,7 +253,7 @@ dataSources:
     source:
       address: "0xb9b8D954811b9a810ebBd8782d15d2ea5e0bf2e5"
       abi: reports
-      startBlock: 9482434
+      startBlock: 9645224
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
