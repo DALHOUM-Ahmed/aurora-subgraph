@@ -1,16 +1,16 @@
 {
-  "caduceus": {
+  "ftm": {
     "users": {
-      "address": "0xA2498cFe17211c87c9013566E39EC4EC7d51595E"
+      "address": "0x28C013E7177648fFB6c6e49B722aEe3A83b65247"
     },
     "posts": {
-      "address": "0x980d7b53f6A0E2B2262B1a9F2f9717af528c7e0b"
+      "address": "0xCbBC93b8240d19dF6AD8cB74671DAd0822703Fc3"
     },
     "groups": {
-      "address": "0x8E49C53B4c240F47330C27aE4a7B7102aE61684E"
+      "address": "0x60640e9438Bc7eD2b08940850Fdce12099e76429"
     },
     "reports": {
-      "address": "0xb9b8D954811b9a810ebBd8782d15d2ea5e0bf2e5"
+      "address": "0xcf01AC9877b001876DC362DAb814962b3321106D"
     }
   }
 }
